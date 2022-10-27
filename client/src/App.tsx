@@ -2,6 +2,7 @@ import { useState } from "react";
 import logo from '../public/images/logo.png'
 import './app.scss';
 import Map from './components/map/Map';
+import SearchBox from './components/searchBox/SearchBox';
 
 import type { TRPCRouter } from '../../server/src/router';
 import { createReactQueryHooks } from '@trpc/react';
@@ -24,6 +25,7 @@ export const trpc = createReactQueryHooks<TRPCRouter>();
             <QueryClientProvider client={queryClient}>
                 <div className="App">
                     <Map/>
+                    <SearchBox/>
                 </div>
             </QueryClientProvider>
         </trpc.Provider>
