@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl';
 import './map.scss';
 
-
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2hlaXJvbmciLCJhIjoiY2w4c25pMXhpMDB0dTN1cG9iYTZoa24xYyJ9.GmTPkKx7TXvPXjmAGsE3Ag';
 
 const Map = () => {
