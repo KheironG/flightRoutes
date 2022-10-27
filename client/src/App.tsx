@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from '../public/images/logo.png'
 import './app.scss';
-import List from './components/List';
+import Map from './components/map/Map';
 
 import type { TRPCRouter } from '../../server/src/router';
 import { createReactQueryHooks } from '@trpc/react';
@@ -23,7 +23,7 @@ export const trpc = createReactQueryHooks<TRPCRouter>();
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
-                    <List/>
+                    <Map/>
                 </div>
             </QueryClientProvider>
         </trpc.Provider>
