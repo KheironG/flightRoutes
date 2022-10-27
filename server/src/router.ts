@@ -2,11 +2,6 @@ import * as trpc from '@trpc/server';
 import z from 'zod';
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
-import assert from 'assert';
-
-
-
-let airports: Airport[] = [];
 
 const Airport = z.object({
     id: z.number(),
@@ -31,9 +26,10 @@ const Airport = z.object({
 const Airports = z.array(Airport);
 
 const trpcRouter = trpc.router()
-    .query('list', {
-        async resolve() {
-
+    .query('get', {
+        input: z.string(),
+        async resolve( req ) {
+            let airports: Airport[] = [];
             const csvPromise = new Promise( (res, rej) => {
                 const headers = [ 'id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg', 'elevation_ft',
                                     'continent', 'iso_country', 'iso_region', 'municipality', 'scheduled_service',
@@ -44,7 +40,7 @@ const trpcRouter = trpc.router()
                     delimiter: ',',
                     columns: headers,
                     on_record: (line, context) => {
-                      if ( line.municipality !== 'Stockholm') { return; }
+                      if ( !line.municipality.toLowerCase().startsWith(req.input.toLowerCase()) ) { return; }
                       return line;
                     },
                 }, (error, result: Airport[]) => {
@@ -53,10 +49,8 @@ const trpcRouter = trpc.router()
                     res('complete');
                 });
             });
-
             await csvPromise;
             return airports;
-
         },
     })
 

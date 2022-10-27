@@ -30,17 +30,6 @@ const trpc = __importStar(require("@trpc/server"));
 const zod_1 = __importDefault(require("zod"));
 const csv_parse_1 = require("csv-parse");
 const fs = __importStar(require("fs"));
-// let cats: Cat[] = [
-//     { id: 12, name: 'test' },
-//     { id: 13, name: 'testing' }
-// ];
-//
-// const Cat = z.object({
-//     id: z.number(),
-//     name: z.string()
-// })
-// const Cats = z.array(Cat);
-let airports = [];
 const Airport = zod_1.default.object({
     id: zod_1.default.number(),
     ident: zod_1.default.string(),
@@ -63,8 +52,10 @@ const Airport = zod_1.default.object({
 });
 const Airports = zod_1.default.array(Airport);
 const trpcRouter = trpc.router()
-    .query('list', {
-    async resolve() {
+    .query('get', {
+    input: zod_1.default.string(),
+    async resolve(req) {
+        let airports = [];
         const csvPromise = new Promise((res, rej) => {
             const headers = ['id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg', 'elevation_ft',
                 'continent', 'iso_country', 'iso_region', 'municipality', 'scheduled_service',
@@ -74,7 +65,7 @@ const trpcRouter = trpc.router()
                 delimiter: ',',
                 columns: headers,
                 on_record: (line, context) => {
-                    if (line.municipality !== 'Stockholm') {
+                    if (!line.municipality.toLowerCase().startsWith(req.input.toLowerCase())) {
                         return;
                     }
                     return line;
