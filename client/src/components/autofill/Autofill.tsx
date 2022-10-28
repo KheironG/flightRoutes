@@ -6,6 +6,10 @@ const Autofill = () => {
 
     return (
         <div className="autofill-component">
+            <div className="input-container">
+                <label>From city</label>
+                <input type="text"></input>
+            </div>
         </div>
     );
 

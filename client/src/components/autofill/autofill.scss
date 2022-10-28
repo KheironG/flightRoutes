@@ -1,0 +1,32 @@
+.autofill-component {
+
+    .input-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        grid-gap: 4px;
+        text-align: left;
+
+        label {
+            font-size: 10px;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #D7DEDD;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 115px;
+            height: 40px;
+            color: white;
+            background-color: #030E6D;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    }
+    
+}
