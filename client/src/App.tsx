@@ -7,10 +7,10 @@ import SearchBox from './components/searchBox/SearchBox';
 import type { TRPCRouter } from '../../server/src/router';
 import { createReactQueryHooks } from '@trpc/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
-const BACKEND_URL: string = "http://localhost:8080/cat";
-
 export const trpc = createReactQueryHooks<TRPCRouter>();
+
+const BACKEND_URL: string = "http://localhost:8080/flightRoutes";
+
 
  const App = () => {
 

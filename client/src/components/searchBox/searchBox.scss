@@ -1,12 +1,18 @@
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    margin-top: -200px;
+}
 form#search-box {
     display: flex;
     justify-content: center;
     align-items: center;
     grid-gap: 16px;
-    position: absolute;
-    z-index: 3;
-    left: 25%;
-    bottom: 100px;
+
     width: 950px;
     max-width: 100%;
     background-color: white;
