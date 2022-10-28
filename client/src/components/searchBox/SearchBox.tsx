@@ -10,7 +10,6 @@ const SearchBox = () => {
         <div className="search-box">
             <form>
                 <Autofill />
-                <Autofill />
                 <div className="input-container">
                     <button>Find route</button>
                 </div>
