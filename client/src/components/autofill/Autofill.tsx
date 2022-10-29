@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { trpc } from '../../App';
 import './autofill.scss';
 
@@ -6,7 +6,13 @@ const Autofill = () => {
 
     const [ string, setString ] = useState("");
 
-    const suggestions = trpc.useQuery(['get', string ], { enabled: false });
+    const suggestions = trpc.getSuggestions.useQuery( string, { enabled: false });
+    console.log(suggestions);
+
+
+    const handleInputChange = ( event: ChangeEvent<HTMLInputElement> ) => {
+        setString(event.target.value);
+    }
 
     useEffect(() => {
         if ( string.length > 2 ) {
@@ -17,9 +23,8 @@ const Autofill = () => {
     return (
         <div className="autofill-component">
             <div className="input-container">
-
                 <label>From city</label>
-                <input type="text" onInput={() => setString(event.target.value)}></input>
+                <input type="text" onInput={handleInputChange} />
             </div>
         </div>
     );

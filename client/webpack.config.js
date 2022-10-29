@@ -16,6 +16,7 @@ module.exports = {
     filename: "bundle.[hash].js",
     path: path.resolve(__dirname, "dist"),
   },
+  stats: 'detailed',
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
@@ -29,16 +30,11 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.ts$|tsx/,
-        exclude: /node_modules/,
-        loader: require.resolve("babel-loader"),
-        options: {
-          plugins: [
-            isDevelopment && require.resolve("react-refresh/babel"),
-          ].filter(Boolean),
-        },
-      },
+        {
+         test: /\.tsx?$/,
+         use: 'ts-loader',
+         exclude: /node_modules/,
+       },
       {
         test: /\.(css|sass|scss)$/,
         use: ["style-loader", "css-loader", "sass-loader"],

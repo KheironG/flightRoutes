@@ -2,6 +2,7 @@ import * as trpc from '@trpc/server';
 import z from 'zod';
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
+import { publicProcedure, router } from './trpc';
 
 const Airport = z.object({
     id: z.number(),
@@ -12,7 +13,7 @@ const Airport = z.object({
     longitude_deg: z.string().or(z.number()),
     elevation_ft: z.string().or(z.number()),
     continent: z.string(),
-    iso_country: z.string() ,
+    iso_country: z.string(),
     iso_region: z.string() ,
     municipality: z.string() ,
     scheduled_service: z.string(),
@@ -25,36 +26,35 @@ const Airport = z.object({
 });
 const Airports = z.array(Airport);
 
-const trpcRouter = trpc.router()
-    .query('get', {
-        input: z.string(),
-        async resolve( req ) {
-            let airports: Airport[] = [];
-            const csvPromise = new Promise( (res, rej) => {
-                const headers = [ 'id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg', 'elevation_ft',
-                                    'continent', 'iso_country', 'iso_region', 'municipality', 'scheduled_service',
-                                    'gps_code', 'iata_code', 'local_code', 'home_link', 'wikipedia_link', 'keywords' ];
-
-                const data = fs.readFileSync(require.resolve("../airports.csv"), { encoding: 'utf-8'});
-                parse(data, {
-                    delimiter: ',',
-                    columns: headers,
-                    on_record: (line, context) => {
-                      if ( !line.municipality.toLowerCase().startsWith(req.input.toLowerCase()) ) { return; }
-                      return line;
-                    },
-                }, (error, result: Airport[]) => {
-                    if (error) { rej( console.error(error) ); }
-                    airports = result;
-                    res('complete');
-                });
+const appRouter = router({
+    getSuggestions: publicProcedure.input(
+            z.string()
+        ).query( async (req) => {
+        let airports: Airport[] = [];
+        const csvPromise = new Promise( (res, rej) => {
+            const headers: string[] = [ 'id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg', 'elevation_ft',
+                                        'continent', 'iso_country', 'iso_region', 'municipality', 'scheduled_service',
+                                        'gps_code', 'iata_code', 'local_code', 'home_link', 'wikipedia_link', 'keywords'];
+            const data = fs.readFileSync(require.resolve("../airports.csv"), { encoding: 'utf-8'} );
+            parse(data, {
+                delimiter: ',',
+                columns: headers,
+                on_record: (line, context) => {
+                  if ( !line.municipality.toLowerCase().startsWith(req.input.toLowerCase()) ) { return; }
+                  return line;
+                },
+            }, (error, result: Airport[]) => {
+                if (error) { rej( console.error(error) ); }
+                airports = result;
+                res('complete');
             });
-            await csvPromise;
-            return airports;
-        },
+        });
+        await csvPromise;
+        return airports;
     })
+});
 
 export type Airport = z.infer<typeof Airport>;
 export type Airports = z.infer<typeof Airports>;
-export type TRPCRouter = typeof trpcRouter;
-export default trpcRouter;
+export type AppRouter = typeof appRouter;
+export default appRouter;
