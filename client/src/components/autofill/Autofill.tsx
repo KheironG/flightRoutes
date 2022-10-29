@@ -4,25 +4,30 @@ import './autofill.scss';
 
 const Autofill = () => {
 
-    const [ string, setString ] = useState("");
-
-    const suggestions = trpc.getSuggestions.useQuery( string, { enabled: false });
-    console.log(suggestions);
-
+    const [ query, setQuery ] = useState("");
+    const suggestions = trpc.getSuggestions.useQuery( query, { enabled: false } );
 
     const handleInputChange = ( event: ChangeEvent<HTMLInputElement> ) => {
-        setString(event.target.value);
+        setQuery(event.target.value);
     }
 
     useEffect(() => {
-        if ( string.length > 2 ) {
-            suggestions.refetch();
-        }
-    }, [string]);
+        if ( query.length > 2 ) { suggestions.refetch();}
+    }, [query]);
 
     return (
         <div className="autofill-component">
             <div className="input-container">
+                {suggestions.data ?
+                    ( suggestions.data.length > 0 ?
+                        ( suggestions.data.map( ( suggestion ) => {
+                                return( <h5>{suggestion.name}, {suggestion.iata_code}</h5> )
+                            })
+                        )
+                        : (null)
+                    )
+                    : ( null )
+                }
                 <label>From city</label>
                 <input type="text" onInput={handleInputChange} />
             </div>
