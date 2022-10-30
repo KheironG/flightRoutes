@@ -40,8 +40,10 @@ const appRouter = router({
                 delimiter: ',',
                 columns: headers,
                 on_record: (line, context) => {
-                  if ( !line.municipality.toLowerCase().startsWith(req.input.toLowerCase()) ) { return; }
-                  return line;
+                    if ( line.municipality.toLowerCase().includes(req.input.toLowerCase()) === true
+                        || line.name.toLowerCase().includes(req.input.toLowerCase()) === true )
+                        { return line; }
+                    return;
                 },
             }, (error, result: Airport[]) => {
                 if (error) { rej( console.error(error) ); }
