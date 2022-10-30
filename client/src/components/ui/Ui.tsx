@@ -10,6 +10,9 @@ const Ui = () => {
 
     const direction: { to: string, from: string } = { to: "to", from: "from" };
 
+    const [ from, setFrom ] = useState({});
+    const [ to, setTo ] = useState({});
+
     return (
         <div className="UI">
             <div className="search-box">
@@ -19,10 +22,10 @@ const Ui = () => {
                         flightRoutes
                     </div>
                     <div className="autofill-component from">
-                        <Autofill direction={direction.from} />
+                        <Autofill direction={direction.from} setAirport={setFrom} />
                     </div>
                     <div className="autofill-component to">
-                        <Autofill direction={direction.to}  />
+                        <Autofill direction={direction.to} setAirport={setTo}  />
                     </div>
                     <button>Find route</button>
                 </form>
