@@ -16,8 +16,9 @@ const Autofill = () => {
     }, [query]);
 
     return (
-        <div className="autofill-component">
+        <>
             <div className="input-container">
+                <input type="text" onInput={handleInputChange} />
                 {suggestions.data ?
                     ( suggestions.data.length > 0 ?
                         ( suggestions.data.map( ( suggestion ) => {
@@ -28,10 +29,10 @@ const Autofill = () => {
                     )
                     : ( null )
                 }
-                <label>From city</label>
-                <input type="text" onInput={handleInputChange} />
+            
             </div>
-        </div>
+
+        </>
     );
 
 }

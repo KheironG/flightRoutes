@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './app.scss';
 import Map from './components/map/Map';
-import SearchBox from './components/searchBox/SearchBox';
+import Ui from './components/ui/Ui';
 
 import type { AppRouter } from '../../server/src/router';
 import { createTRPCReact } from '@trpc/react-query';
@@ -26,7 +26,7 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
                 <div className="App">
                     <Map/>
-                    <SearchBox/>
+                    <Ui/>
                 </div>
             </QueryClientProvider>
         </trpc.Provider>
