@@ -4,6 +4,7 @@ import './autofill.scss';
 
 import { MdFlightTakeoff } from "react-icons/md";
 import { MdFlightLand } from "react-icons/md";
+import { MdAirplanemodeActive } from "react-icons/md";
 
 type Props = {
   direction: string;
@@ -32,16 +33,28 @@ const Autofill = ( { direction } :Props ) => {
                         : ( <MdFlightLand /> )
                     }
                 </div>
+                <div className="suggestions">
                 {suggestions.data ?
                     ( suggestions.data.length > 0 ?
                         ( suggestions.data.map( ( suggestion ) => {
-                                return( <h5>{suggestion.name}, {suggestion.iata_code}</h5> )
+                                return(
+                                    <div className="suggestion">
+                                        <div className="icon">
+                                            <MdAirplanemodeActive fontSize="1.2em" />
+                                        </div>
+                                        <div className="info">
+                                            <h5>{suggestion.name}, {suggestion.iata_code}</h5>
+                                            <small>{suggestion.iso_country}</small>
+                                        </div>
+                                    </div>
+                                )
                             })
                         )
                         : (null)
                     )
                     : ( null )
                 }
+                </div>
             </div>
         </>
     );
