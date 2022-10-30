@@ -5,6 +5,9 @@ import { GiWitchFlight } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 
 const SearchBox = () => {
+
+    const direction: { to: string, from: string } = { to: "to", from: "from" };
+
     return (
         <div className="search-box">
             <form>
@@ -13,10 +16,10 @@ const SearchBox = () => {
                     flightRoutes
                 </div>
                 <div className="autofill-component from">
-                    <Autofill />
+                    <Autofill direction={direction.from} />
                 </div>
                 <div className="autofill-component to">
-                    <Autofill />
+                    <Autofill direction={direction.to}  />
                 </div>
                 <button>Find route</button>
             </form>
