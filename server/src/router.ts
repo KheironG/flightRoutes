@@ -6,23 +6,12 @@ import { publicProcedure, router } from './trpc';
 
 const Airport = z.object({
     id: z.number(),
-    ident: z.string(),
-    type: z.string(),
     name: z.string(),
-    latitude_deg: z.string().or(z.number()),
-    longitude_deg: z.string().or(z.number()),
-    elevation_ft: z.string().or(z.number()),
-    continent: z.string(),
-    iso_country: z.string(),
-    iso_region: z.string() ,
-    municipality: z.string() ,
-    scheduled_service: z.string(),
-    gps_code: z.string(),
-    iata_code: z.string(),
-    local_code: z.string() ,
-    home_link: z.string() ,
-    wikipedia_link: z.string(),
-    keywords: z.string()
+    lat: z.string().or(z.number()),
+    lng: z.string().or(z.number()),
+    country: z.string(),
+    city: z.string() ,
+    iata: z.string(),
 });
 const Airports = z.array(Airport);
 
@@ -32,15 +21,13 @@ const appRouter = router({
         ).query( async (req) => {
         let airports: Airport[] = [];
         const csvPromise = new Promise( (res, rej) => {
-            const headers: string[] = [ 'id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg', 'elevation_ft',
-                                        'continent', 'iso_country', 'iso_region', 'municipality', 'scheduled_service',
-                                        'gps_code', 'iata_code', 'local_code', 'home_link', 'wikipedia_link', 'keywords'];
+            const headers: string[] = [ 'id', 'name', 'lat', 'lng', 'country', 'city', 'iata' ];
             const data = fs.readFileSync(require.resolve("../airports.csv"), { encoding: 'utf-8'} );
             parse(data, {
                 delimiter: ',',
                 columns: headers,
                 on_record: (line, context) => {
-                    if ( line.municipality.toLowerCase().includes(req.input.toLowerCase()) === true
+                    if ( line.city.toLowerCase().includes(req.input.toLowerCase()) === true
                         || line.name.toLowerCase().includes(req.input.toLowerCase()) === true )
                         { return line; }
                     return;
