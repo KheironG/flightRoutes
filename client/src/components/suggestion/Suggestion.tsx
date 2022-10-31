@@ -2,19 +2,11 @@ import { useRef, useEffect, useState } from 'react';
 import './suggestion.scss';
 import { MdAirplanemodeActive } from "react-icons/md";
 
-type Suggestion = {
-    id: number,
-    name: string,
-    lat: string | number,
-    lng: string | number,
-    country: string,
-    city: string,
-    iata: string,
-};
+import { Airport } from '../../typescript'
 
 interface Props {
-    suggestion: Suggestion,
-    setSuggestion: ( value : object ) => void;
+    suggestion: Airport,
+    setSuggestion: ( suggestion : Airport ) => void;
 };
 
 const Suggestion = ( { suggestion, setSuggestion } :Props ) => {

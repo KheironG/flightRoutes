@@ -3,16 +3,20 @@ import { trpc } from '../../App';
 import './autofill.scss';
 
 import Suggestion from '../suggestion/Suggestion';
+import { Airport } from '../../typescript'
 
 import { MdFlightTakeoff } from "react-icons/md";
 import { MdFlightLand } from "react-icons/md";
 
 type Props = {
     direction: string;
-    setAirport: ( value : object ) => void;
+    setAirport: ( airport: Airport ) => void;
 };
 
 const Autofill = ( { direction, setAirport } :Props ) => {
+
+    console.log('test');
+
 
     const [ query, setQuery ] = useState("");
     const [ showSuggestions, setShowSuggestions ] = useState(false);
@@ -24,8 +28,9 @@ const Autofill = ( { direction, setAirport } :Props ) => {
         return;
     }
 
-    const setSuggestion = ( airport: object ) => {
-        setQuery("Stockholm-Arlanda Airport");
+    const setSuggestion = ( airport: Airport ) => {
+        const queryString = airport.name + " (" + airport.iata + ")";
+        setQuery(queryString);
         setShowSuggestions(false);
         setSelected(true);
         setAirport(airport);
@@ -60,7 +65,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                         {suggestions.data ?
                             ( suggestions.data.length > 0 ?
                                 ( suggestions.data.map( ( suggestion ) => {
-                                    return( <Suggestion suggestion={suggestion} setSuggestion={setSuggestion} />)
+                                    return( <Suggestion key={suggestion.id} suggestion={suggestion} setSuggestion={setSuggestion} />)
                                     })
                                 )
                                 : (null)
