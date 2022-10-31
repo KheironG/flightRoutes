@@ -2,9 +2,10 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { trpc } from '../../App';
 import './autofill.scss';
 
+import Suggestion from '../suggestion/Suggestion';
+
 import { MdFlightTakeoff } from "react-icons/md";
 import { MdFlightLand } from "react-icons/md";
-import { MdAirplanemodeActive } from "react-icons/md";
 
 type Props = {
     direction: string;
@@ -59,17 +60,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                         {suggestions.data ?
                             ( suggestions.data.length > 0 ?
                                 ( suggestions.data.map( ( suggestion ) => {
-                                    return(
-                                            <div className="suggestion" onClick={() => setSuggestion(suggestion)}>
-                                                <div className="icon">
-                                                    <MdAirplanemodeActive fontSize="1.2em" />
-                                                </div>
-                                                <div className="info">
-                                                    <h5>{suggestion.name}, {suggestion.iata_code}</h5>
-                                                    <small>{suggestion.iso_country}</small>
-                                                </div>
-                                            </div>
-                                        )
+                                    return( <Suggestion suggestion={suggestion} setSuggestion={setSuggestion} />)
                                     })
                                 )
                                 : (null)

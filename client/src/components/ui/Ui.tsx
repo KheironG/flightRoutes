@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './ui.scss';
 import './searchBox.scss';
 
-import { GiWitchFlight } from "react-icons/gi";
+import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
 
@@ -18,8 +18,8 @@ const Ui = () => {
             <div className="search-box">
                 <form>
                     <div className="app-logo">
-                        <GiWitchFlight color="#030E6D" fontSize="2em"  />
-                        flightRoutes
+                        <GiCommercialAirplane color="#030E6D" fontSize="2.5em"  />
+                        <h3>flightRoutes</h3>
                     </div>
                     <div className="autofill-component from">
                         <Autofill direction={direction.from} setAirport={setFrom} />
