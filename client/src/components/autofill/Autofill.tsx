@@ -15,9 +15,6 @@ type Props = {
 
 const Autofill = ( { direction, setAirport } :Props ) => {
 
-    console.log('test');
-
-
     const [ query, setQuery ] = useState("");
     const [ showSuggestions, setShowSuggestions ] = useState(false);
     const [ selected, setSelected ] = useState(false);
@@ -47,7 +44,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
             }
             return;
         }
-    }, [query]);
+    }, [query] );
 
     return (
         <>

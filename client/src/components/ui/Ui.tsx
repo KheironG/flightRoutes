@@ -5,13 +5,16 @@ import './searchBox.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
+import { Airport } from '../../typescript'
 
-const Ui = () => {
+type Props = {
+    setTo: ( airport: Airport ) => void;
+    setFrom: ( airport: Airport ) => void;
+};
+
+const Ui = ( { setTo, setFrom } : Props ) => {
 
     const direction: { to: string, from: string } = { to: "to", from: "from" };
-
-    const [ from, setFrom ] = useState({});
-    const [ to, setTo ] = useState({});
 
     return (
         <div className="UI">
