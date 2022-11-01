@@ -2,17 +2,7 @@ import * as trpc from '@trpc/server';
 import z from 'zod';
 import { publicProcedure, router } from './trpc';
 import { collections } from "./mongodb";
-
-const Airport = z.object({
-    id: z.number(),
-    name: z.string(),
-    lat: z.number(),
-    lng: z.number(),
-    country: z.string(),
-    city: z.string() ,
-    iata: z.string(),
-});
-const Airports = z.array(Airport);
+import { Airports, Airport } from "./zod"
 
 const appRouter = router({
     getSuggestions: publicProcedure.input(
