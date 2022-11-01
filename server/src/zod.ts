@@ -10,3 +10,16 @@ export const Airport = z.object({
     iata: z.string(),
 });
 export const Airports = z.array(Airport);
+
+export const Route = z.object({
+    airline: z.string(),
+    airline_id: z.number(),
+    dep_airport: z.string(),
+    dep_airport_id: z.number(),
+    arr_airport: z.string(),
+    arr_airport_id: z.number(),
+    codeshare: z.string(),
+    stops: z.number(),
+    equipment: z.string(),
+});
+export const Routes = z.array(Route);
