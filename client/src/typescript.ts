@@ -7,3 +7,5 @@ export type Airport = {
     city: string,
     iata: string,
 };
+
+export const defaultLocation: Airport = { id: 0, name: "", lat: 0, lng: 0, country: "", city: "", iata: "" }

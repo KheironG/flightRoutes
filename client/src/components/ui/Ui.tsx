@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import './ui.scss';
 import './searchBox.scss';
+import './loader.scss';
 
 import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
@@ -10,17 +11,25 @@ import { Airport } from '../../typescript'
 type Props = {
     setTo: ( airport: Airport ) => void;
     setFrom: ( airport: Airport ) => void;
+    searching: boolean;
+    triggerSearch: ( searching: boolean ) => void;
 };
 
-const Ui = ( { setTo, setFrom } : Props ) => {
+const Ui = ( { setTo, setFrom, triggerSearch, searching } : Props ) => {
 
     const direction: { to: string, from: string } = { to: "to", from: "from" };
+
+    const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
+        event.preventDefault();
+        triggerSearch(true);
+        return;
+    }
 
     return (
         <div className="UI">
             <div className="search-box">
                 <div className="app-logo">
-                    <GiCommercialAirplane color="#02122c" fontSize="2.2em"  />
+                    <GiCommercialAirplane color="#02122c" fontSize="2.2em" />
                     <h3>flightRoutes</h3>
                 </div>
                 <form>
@@ -29,9 +38,14 @@ const Ui = ( { setTo, setFrom } : Props ) => {
                         <Autofill direction={direction.from} setAirport={setFrom} />
                     </div>
                     <div className="autofill-component to">
-                        <Autofill direction={direction.to} setAirport={setTo}  />
+                        <Autofill direction={direction.to} setAirport={setTo} />
                     </div>
-                    <button>Find route</button>
+                    <button onClick={handleOnclick}>
+                        Find route
+                        {searching &&
+                            (<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)
+                        }
+                    </button>
                 </form>
             </div>
             <Results />
