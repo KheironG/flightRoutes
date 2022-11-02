@@ -19,11 +19,12 @@ const Ui = ( { setTo, setFrom } : Props ) => {
     return (
         <div className="UI">
             <div className="search-box">
+                <div className="app-logo">
+                    <GiCommercialAirplane color="#02122c" fontSize="2.2em"  />
+                    <h3>flightRoutes</h3>
+                </div>
                 <form>
-                    <div className="app-logo">
-                        <GiCommercialAirplane color="white" fontSize="2.2em"  />
-                        <h3>flightRoutes</h3>
-                    </div>
+                    <h4>Explore routes</h4>
                     <div className="autofill-component from">
                         <Autofill direction={direction.from} setAirport={setFrom} />
                     </div>
