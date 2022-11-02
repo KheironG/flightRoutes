@@ -69,7 +69,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                             )
                             : ( null )
                         }
-                      </div>
+                    </div>
                   )}
             </div>
         </>

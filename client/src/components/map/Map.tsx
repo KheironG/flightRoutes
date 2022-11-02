@@ -39,11 +39,10 @@ const Map = ( { from, to } : Props) => {
             map.current.flyTo({ center: [from.lng, from.lat] });
     }, [from]);
 
-
-
     return (
         <div ref={mapContainer} className='map-container' />
     );
 
 }
+
 export default Map;
