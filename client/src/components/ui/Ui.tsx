@@ -1,4 +1,5 @@
 import { MouseEvent, useEffect, useState } from 'react';
+import { trpc } from '../../App';
 import './ui.scss';
 import './searchBox.scss';
 import './loader.scss';
@@ -6,24 +7,25 @@ import './loader.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
-import { Airport } from '../../typescript'
+import { Airport, direction } from '../../typescript'
 
 type Props = {
     setTo: ( airport: Airport ) => void;
     setFrom: ( airport: Airport ) => void;
-    searching: boolean;
-    triggerSearch: ( searching: boolean ) => void;
 };
 
-const Ui = ( { setTo, setFrom, triggerSearch, searching } : Props ) => {
+const Ui = ( { setTo, setFrom } : Props ) => {
 
-    const direction: { to: string, from: string } = { to: "to", from: "from" };
+    const [ searching, triggerSearch ] = useState(false);
+    const suggestions = trpc.getRoutes.useQuery( { from: '', to: '' }, { enabled: false } );
 
-    const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
-        event.preventDefault();
-        triggerSearch(true);
-        return;
-    }
+    useEffect(() => {
+        if ( searching === true ) {
+
+            return;
+        }
+    }, [searching] );
+
 
     return (
         <div className="UI">
@@ -40,7 +42,7 @@ const Ui = ( { setTo, setFrom, triggerSearch, searching } : Props ) => {
                     <div className="autofill-component to">
                         <Autofill direction={direction.to} setAirport={setTo} />
                     </div>
-                    <button onClick={handleOnclick}>
+                    <button onClick={() => triggerSearch(true)}>
                         Find route
                         {searching &&
                             (<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)

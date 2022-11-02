@@ -18,6 +18,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
     const [ query, setQuery ] = useState("");
     const [ showSuggestions, setShowSuggestions ] = useState(false);
     const [ selected, setSelected ] = useState(false);
+
     const suggestions = trpc.getSuggestions.useQuery( query, { enabled: false } );
 
     const handleInputChange = ( event: ChangeEvent<HTMLInputElement> ) => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './app.scss';
 import Map from './components/map/Map';
 import Ui from './components/ui/Ui';
@@ -20,16 +20,13 @@ const App = () => {
 
     const [ from, setFrom ] = useState(defaultLocation);
     const [ to, setTo ] = useState(defaultLocation);
-    const [ searching, triggerSearch ] = useState(false);
-
-    console.log(searching);
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
                     <Map from={from} to={to} />
-                    <Ui setFrom={setFrom} setTo={setTo} searching={searching} triggerSearch={triggerSearch} />
+                    <Ui setFrom={setFrom} setTo={setTo} />
                 </div>
             </QueryClientProvider>
         </trpc.Provider>
