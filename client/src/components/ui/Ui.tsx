@@ -10,22 +10,30 @@ import Results from '../results/Results';
 import { Airport, direction } from '../../typescript'
 
 type Props = {
+    to: Airport;
     setTo: ( airport: Airport ) => void;
+    from: Airport;
     setFrom: ( airport: Airport ) => void;
 };
 
-const Ui = ( { setTo, setFrom } : Props ) => {
+const Ui = ( { setTo, setFrom, to, from } : Props ) => {
 
     const [ searching, triggerSearch ] = useState(false);
-    const suggestions = trpc.getRoutes.useQuery( { from: '', to: '' }, { enabled: false } );
+    const routes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
+
+    const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
+        event.preventDefault();
+        triggerSearch(true);
+        return;
+    }
 
     useEffect(() => {
         if ( searching === true ) {
-
+            console.log(to);
+            routes.refetch();
             return;
         }
     }, [searching] );
-
 
     return (
         <div className="UI">
@@ -42,7 +50,7 @@ const Ui = ( { setTo, setFrom } : Props ) => {
                     <div className="autofill-component to">
                         <Autofill direction={direction.to} setAirport={setTo} />
                     </div>
-                    <button onClick={() => triggerSearch(true)}>
+                    <button onClick={handleOnclick}>
                         Find route
                         {searching &&
                             (<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)

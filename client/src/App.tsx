@@ -26,7 +26,7 @@ const App = () => {
             <QueryClientProvider client={queryClient}>
                 <div className="App">
                     <Map from={from} to={to} />
-                    <Ui setFrom={setFrom} setTo={setTo} />
+                    <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} />
                 </div>
             </QueryClientProvider>
         </trpc.Provider>

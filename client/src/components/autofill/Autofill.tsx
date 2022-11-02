@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { trpc } from '../../App';
 import './autofill.scss';
-
+import { trpc } from '../../App';
 import Suggestion from '../suggestion/Suggestion';
 import { Airport } from '../../typescript'
 
