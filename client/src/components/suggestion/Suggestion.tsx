@@ -13,7 +13,7 @@ const Suggestion = ( { suggestion, setSuggestion } :Props ) => {
     return (
         <div className="suggestion" onClick={() => setSuggestion(suggestion)}>
             <div className="icon">
-                <MdAirplanemodeActive fontSize="1.2em" />
+                <MdAirplanemodeActive style={{ position: 'relative', top: '0px', left: '0px' } } fontSize="1.2em" />
             </div>
             <div className="info">
                 <h5>{suggestion.name} {"(" + suggestion.iata + ")"}</h5>

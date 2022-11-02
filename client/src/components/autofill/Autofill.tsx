@@ -55,7 +55,9 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                         onFocus={() => setSelected(false)}
                         value={query}
                     />
-                    { direction === "from" ? ( <MdFlightTakeoff /> ) : ( <MdFlightLand /> ) }
+                    { direction === "from" ?
+                        ( <MdFlightTakeoff style={{ position: 'absolute', top: '12px', left: '10px' } } /> ) :
+                        ( <MdFlightLand style={{ position: 'absolute', top: '12px', left: '10px' } } /> ) }
                 </div>
                 {showSuggestions &&
                     (<div className="suggestions">

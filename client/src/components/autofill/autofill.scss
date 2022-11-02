@@ -26,18 +26,13 @@
             box-sizing: border-box;
         }
 
-        svg {
-            position: absolute;
-            top: 12px;
-            left: 10px;
-        }
     }
 
     .suggestions {
         width: 100%;
         max-height: 400px;
         overflow-y: scroll;
-        margin-bottom: -6px;
+        margin-top: -6px;
     }
 
 }
