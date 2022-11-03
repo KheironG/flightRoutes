@@ -1,7 +1,7 @@
 import * as trpc from '@trpc/server';
 import z from 'zod';
 import { publicProcedure, router } from './trpc';
-import fetch from 'node-fetch';
+import * as dotenv from "dotenv";
 import { ObjectId } from 'mongodb';
 import { collections } from "./mongodb";
 import { AirportClass } from "./models/airport"
@@ -29,6 +29,8 @@ const Route = z.object({
     equipment: z.string().or(z.number())
 });
 
+dotenv.config();
+
 const appRouter = router({
     getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()) )
         .query( async ( req ) => {
@@ -44,7 +46,9 @@ const appRouter = router({
                     }
                 }
             }
-            catch (error) { console.log(error); }
+            catch (error) {
+                console.log(error);
+            }
         }),
     getRoutes: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array(Route).or(z.undefined()) )
         .query( async ( req ) => {
@@ -59,14 +63,25 @@ const appRouter = router({
                     }
                 }
             }
-            catch (error) { console.log(error); }
+            catch (error) {
+                console.log(error);
+            }
         }),
     getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
         .query( async ( req ) => {
+            const url ='https://api.flightplandatabase.com/search/plans?fromICAO=EHAM&toName=Kennedy&limit=10';
+            const options = {
+            	method: 'GET',
+            	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
+            };
             try {
-
+                const resolve = await fetch(url);
+                const plans = await resolve.json();
+                console.log(plans);
             }
-            catch (error) { console.log(error); }
+            catch (error) {
+                console.log(error);
+            }
         })
 });
 
