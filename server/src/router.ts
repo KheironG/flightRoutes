@@ -3,33 +3,30 @@ import z from 'zod';
 import { publicProcedure, router } from './trpc';
 import { ObjectId } from 'mongodb';
 import { collections } from "./mongodb";
-import { Airport, Route } from "./zod"
+import { AirportClass } from "./models/airport"
+import { RouteClass } from "./models/route"
 
-class AirportClass {
-    constructor(
-        public id: number,
-        public name: string,
-        public lat: number,
-        public lng: number,
-        public country: string,
-        public city: string,
-        public iata: string,
-        public _id?: ObjectId) {}
-}
+const Airport = z.object({
+    id: z.number(),
+    name: z.string(),
+    lat: z.number(),
+    lng: z.number(),
+    country: z.string(),
+    city: z.string() ,
+    iata: z.string(),
+});
 
-class RouteClass {
-    constructor(
-        public airline: string,
-        public airline_id: number,
-        public dep_airport: string,
-        public dep_airport_id: number,
-        public arr_airport: string,
-        public arr_airport_id: number,
-        public codeshare: string,
-        public stops: number,
-        public equipment: string | number,
-        public _id?: ObjectId) {}
-}
+const Route = z.object({
+    airline: z.string(),
+    airline_id: z.number(),
+    dep_airport: z.string(),
+    dep_airport_id: z.number(),
+    arr_airport: z.string(),
+    arr_airport_id: z.number(),
+    codeshare: z.string(),
+    stops: z.number(),
+    equipment: z.string().or(z.number())
+});
 
 const appRouter = router({
     getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()) )
@@ -45,7 +42,8 @@ const appRouter = router({
                         return airport;
                     }
                 }
-            } catch (error) { console.log(error); }
+            }
+            catch (error) { console.log(error); }
         }),
     getRoutes: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array(Route).or(z.undefined()) )
         .query( async ( req ) => {
@@ -59,7 +57,8 @@ const appRouter = router({
                         return routes;
                     }
                 }
-            } catch (error) { console.log(error); }
+            }
+            catch (error) { console.log(error); }
         })
 });
 
