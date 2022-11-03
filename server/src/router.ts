@@ -1,6 +1,7 @@
 import * as trpc from '@trpc/server';
 import z from 'zod';
 import { publicProcedure, router } from './trpc';
+import fetch from 'node-fetch';
 import { ObjectId } from 'mongodb';
 import { collections } from "./mongodb";
 import { AirportClass } from "./models/airport"
@@ -57,6 +58,13 @@ const appRouter = router({
                         return routes;
                     }
                 }
+            }
+            catch (error) { console.log(error); }
+        }),
+    getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
+        .query( async ( req ) => {
+            try {
+
             }
             catch (error) { console.log(error); }
         })
