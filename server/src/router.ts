@@ -29,6 +29,7 @@ const Route = z.object({
     equipment: z.string().or(z.number())
 });
 
+
 dotenv.config();
 
 const appRouter = router({
@@ -69,13 +70,16 @@ const appRouter = router({
         }),
     getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
         .query( async ( req ) => {
-            const url ='https://api.flightplandatabase.com/search/plans?fromICAO=EHAM&toName=Kennedy&limit=10';
+            console.log(req.input);
+
+            const url ='https://api.flightplandatabase.com/search/'
+            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10';
             const options = {
             	method: 'GET',
             	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
             };
             try {
-                const resolve = await fetch(url);
+                const resolve = await fetch(url+query);
                 const plans = await resolve.json();
                 console.log(plans);
             }
