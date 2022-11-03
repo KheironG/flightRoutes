@@ -7,7 +7,8 @@ import './loader.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
-import { Airport, direction } from '../../typescript'
+import { direction, defaultRoute } from '../../typescript'
+import type { Airport, Route } from '../../../../server/src/router'
 
 type Props = {
     to: Airport;
@@ -19,7 +20,9 @@ type Props = {
 const Ui = ( { setTo, setFrom, to, from } : Props ) => {
 
     const [ searching, triggerSearch ] = useState(false);
-    const routes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
+    const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
+    const [ routes, setRoutes ] = useState<Route[] | undefined>([defaultRoute]);
+    console.log(routes);
 
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
         event.preventDefault();
@@ -30,10 +33,19 @@ const Ui = ( { setTo, setFrom, to, from } : Props ) => {
     useEffect(() => {
         if ( searching === true ) {
             console.log(to);
-            routes.refetch();
+            getRoutes.refetch();
             return;
         }
     }, [searching] );
+
+    useEffect(() => {
+        if ( getRoutes.isSuccess === true ) {
+            triggerSearch(false)
+            setRoutes(getRoutes.data);
+            return;
+        }
+    }, [getRoutes.isSuccess, getRoutes.isError] );
+
 
     return (
         <div className="UI">
@@ -58,8 +70,9 @@ const Ui = ( { setTo, setFrom, to, from } : Props ) => {
                     </button>
                 </form>
             </div>
-            <Results />
+            <Results routes={routes} />
         </div>
     );
 }
+
 export default Ui;
