@@ -29,6 +29,43 @@ const Route = z.object({
     equipment: z.string().or(z.number())
 });
 
+const Plan = z.object({
+    id: z.number(),
+    fromICAO: z.string().nullable(),
+    toICAO: z.string().nullable(),
+    fromName: z.string().nullable(),
+    toName: z.string().nullable(),
+    flightNumber: z.string().nullable(),
+    distance: z.number(),
+    maxAltitude: z.number(),
+    waypoints: z.number(),
+    likes: z.number(),
+    downloads: z.number(),
+    popularity: z.number(),
+    notes: z.string(),
+    encodedPolyline: z.string(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    tags: z.array(z.string()),
+    user: z.object({
+        id: z.number(),
+        username: z.string(),
+        gravatarHash: z.string(),
+        location: z.string().nullable(),
+    }).nullable(),
+    application: z.object({
+        id: z.number(),
+        name: z.string().nullable(),
+        url: z.string().nullable(),
+    }).nullable(),
+    cycle: z.object({
+        id: z.number(),
+        ident: z.string(),
+        year: z.number(),
+        release: z.number(),
+    }).nullable(),
+});
+
 
 dotenv.config();
 
@@ -70,18 +107,18 @@ const appRouter = router({
         }),
     getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
         .query( async ( req ) => {
-            console.log(req.input);
-
             const url ='https://api.flightplandatabase.com/search/'
-            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10';
+            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=true';
             const options = {
             	method: 'GET',
             	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
             };
             try {
-                const resolve = await fetch(url+query);
-                const plans = await resolve.json();
-                console.log(plans);
+                const get = await fetch(url+query, options);
+                const resolve = await get.json();
+                console.log(resolve);
+                return resolve;
+
             }
             catch (error) {
                 console.log(error);
