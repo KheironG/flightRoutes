@@ -12,9 +12,8 @@ export const Airport = z.object({
     region: z.string(),
     city: z.string(),
     scheduled_service: z.string(),
-    gps: z.string(),
-    iata: z.string(),
     icao: z.string(),
+    iata: z.string(),
     url: z.string(),
     wikipedia: z.string(),
 });

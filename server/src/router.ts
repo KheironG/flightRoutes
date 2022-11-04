@@ -48,7 +48,7 @@ const appRouter = router({
     getPlan: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
         .query( async ( req ) => {
             const url ='https://api.flightplandatabase.com/search/'
-            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=true';
+            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=1&includeRoute=true';
             const options = {
             	method: 'GET',
             	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }

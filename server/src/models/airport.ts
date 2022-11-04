@@ -13,9 +13,8 @@ export class AirportClass {
         public region: string,
         public city: string,
         public scheduled_service: string,
-        public gps: string,
-        public iata: string,
         public icao: string,
+        public iata: string,
         public url: string,
         public wikipedia: string,
         public _id?: ObjectId) {}
