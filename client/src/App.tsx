@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import './app.scss';
 import Map from './components/map/Map';
 import Ui from './components/ui/Ui';
-import { Airport, defaultLocation } from './typescript';
+import { Airport, defaultAirport } from './typescript';
 
 import type { AppRouter } from '../../server/src/router';
 import { createTRPCReact } from '@trpc/react-query';
@@ -18,8 +18,8 @@ const App = () => {
       links: [ httpBatchLink({ url: 'http://localhost:8080/flightRoutes' })]
     }));
 
-    const [ from, setFrom ] = useState(defaultLocation);
-    const [ to, setTo ] = useState(defaultLocation);
+    const [ from, setFrom ] = useState(defaultAirport);
+    const [ to, setTo ] = useState(defaultAirport);
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>

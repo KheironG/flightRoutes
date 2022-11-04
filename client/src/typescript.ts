@@ -1,12 +1,23 @@
 export type Airport = {
     id: number,
+    type: string,
     name: string,
     lat: number,
     lng: number,
+    elevation: number,
+    continent: string,
     country: string,
+    region: string,
     city: string,
+    scheduled_service: string,
+    gps: string,
     iata: string,
+    icao: string,
+    url: string,
+    wikipedia: string,
 };
+
+
 
 export type Route = {
      airline: string,
@@ -20,14 +31,23 @@ export type Route = {
      equipment: string | number,
 };
 
-export const defaultLocation: Airport = {
+export const defaultAirport: Airport = {
     id: 0,
+    type: "",
     name: "",
     lat: 0,
     lng: 0,
+    elevation: 0,
+    continent: "",
     country: "",
+    region: "",
     city: "",
-    iata: ""
+    scheduled_service: "",
+    gps: "",
+    iata: "",
+    icao: "",
+    url: "",
+    wikipedia: "",
 }
 
 export const defaultRoute: Route = {

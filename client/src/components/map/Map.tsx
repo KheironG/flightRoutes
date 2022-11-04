@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { trpc } from '../../App';
 import mapboxgl from 'mapbox-gl';
 import './map.scss';
 import { Airport } from '../../typescript';
@@ -28,6 +29,18 @@ const Map = ( { from, to } : Props) => {
             zoom: zoom
         });
     });
+
+    const [ plan, setPlan ] = useState();
+    const getPlan = trpc.getPlan.useQuery( { from: from.icao, to: to.icao }, { enabled: false } );
+
+    useEffect(() => {
+        if ( !to.icao && !from.icao && !plan ) return;
+            getPlan.refetch();
+            return;
+    }, [from, to, plan]);
+
+    console.log(plan);
+
 
     useEffect(() => {
         if ( to.lng === 0 && to.lat === 0 ) return;

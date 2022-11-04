@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { MdSearch } from "react-icons/md";
 import './results.scss';
 import type { Route } from '../../../../server/src/models/zod'
 

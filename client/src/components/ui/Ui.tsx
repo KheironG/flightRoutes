@@ -32,7 +32,6 @@ const Ui = ( { setTo, setFrom, to, from } : Props ) => {
 
     useEffect(() => {
         if ( searching === true ) {
-            console.log(to);
             getRoutes.refetch();
             return;
         }
