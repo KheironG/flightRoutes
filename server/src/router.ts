@@ -44,8 +44,8 @@ const Plan = z.object({
     popularity: z.number(),
     notes: z.string(),
     encodedPolyline: z.string(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
     tags: z.array(z.string()),
     user: z.object({
         id: z.number(),
@@ -105,10 +105,10 @@ const appRouter = router({
                 console.log(error);
             }
         }),
-    getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
+    getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array( Plan ) )
         .query( async ( req ) => {
             const url ='https://api.flightplandatabase.com/search/'
-            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=true';
+            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=false';
             const options = {
             	method: 'GET',
             	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
@@ -118,7 +118,6 @@ const appRouter = router({
                 const resolve = await get.json();
                 console.log(resolve);
                 return resolve;
-
             }
             catch (error) {
                 console.log(error);
@@ -128,5 +127,6 @@ const appRouter = router({
 
 export type Airport = z.infer<typeof Airport>;
 export type Route = z.infer<typeof Route>;
+export type Plan = z.infer<typeof Route>;
 export type AppRouter = typeof appRouter;
 export default appRouter;
