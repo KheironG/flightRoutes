@@ -6,6 +6,7 @@ import { ObjectId } from 'mongodb';
 import { collections } from "./mongodb";
 import { AirportClass } from "./models/airport"
 import { RouteClass } from "./models/route"
+dotenv.config();
 
 const Airport = z.object({
     id: z.number(),
@@ -64,10 +65,23 @@ const Plan = z.object({
         year: z.number(),
         release: z.number(),
     }).nullable(),
+    plan: z.object({
+        nodes : z.array(
+            z.object({
+                type: z.string(),
+                ident: z.string(),
+                lat: z.number(),
+                lon: z.number(),
+                alt: z.number(),
+                name: z.string().nullable(),
+                via: z.object({
+                    ident: z.string(),
+                    type: z.string()
+                }).nullable(),
+            }),
+        )
+    }).nullable()
 });
-
-
-dotenv.config();
 
 const appRouter = router({
     getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()) )
@@ -105,10 +119,10 @@ const appRouter = router({
                 console.log(error);
             }
         }),
-    getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array( Plan ) )
+    getPlans: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
         .query( async ( req ) => {
             const url ='https://api.flightplandatabase.com/search/'
-            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=false';
+            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=10&includeRoute=true';
             const options = {
             	method: 'GET',
             	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
