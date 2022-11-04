@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import './app.scss';
-import Map from './components/map/Map';
+import MapBox from './components/map/Map';
 import Ui from './components/ui/Ui';
 import { Airport, defaultAirport } from './typescript';
 import type { Plan } from '../../server/src/models/zod'
@@ -28,7 +28,7 @@ const App = () => {
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
-                    <Map from={from} to={to} />
+                    <MapBox from={from} to={to} results={results} />
                     <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} results={results} setResults={setResults} />
                 </div>
             </QueryClientProvider>
