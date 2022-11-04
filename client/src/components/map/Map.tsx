@@ -30,18 +30,6 @@ const Map = ( { from, to } : Props) => {
         });
     });
 
-    const [ plan, setPlan ] = useState();
-    const getPlan = trpc.getPlan.useQuery( { from: from.icao, to: to.icao }, { enabled: false } );
-
-    useEffect(() => {
-        if ( !to.icao && !from.icao && !plan ) return;
-            getPlan.refetch();
-            return;
-    }, [from, to, plan]);
-
-    console.log(plan);
-
-
     useEffect(() => {
         if ( to.lng === 0 && to.lat === 0 ) return;
             map.current.flyTo({ center: [to.lng, to.lat] });

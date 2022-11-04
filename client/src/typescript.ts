@@ -10,9 +10,8 @@ export type Airport = {
     region: string,
     city: string,
     scheduled_service: string,
-    gps: string,
-    iata: string,
     icao: string,
+    iata: string,
     url: string,
     wikipedia: string,
 };
@@ -43,9 +42,8 @@ export const defaultAirport: Airport = {
     region: "",
     city: "",
     scheduled_service: "",
-    gps: "",
-    iata: "",
     icao: "",
+    iata: "",
     url: "",
     wikipedia: "",
 }

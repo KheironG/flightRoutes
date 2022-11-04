@@ -3,6 +3,7 @@ import './app.scss';
 import Map from './components/map/Map';
 import Ui from './components/ui/Ui';
 import { Airport, defaultAirport } from './typescript';
+import type { Plan } from '../../server/src/models/zod'
 
 import type { AppRouter } from '../../server/src/router';
 import { createTRPCReact } from '@trpc/react-query';
@@ -20,13 +21,15 @@ const App = () => {
 
     const [ from, setFrom ] = useState(defaultAirport);
     const [ to, setTo ] = useState(defaultAirport);
+    const [ results, setResults ] = useState<Plan | undefined>();
+    console.log(results);
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
                     <Map from={from} to={to} />
-                    <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} />
+                    <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} results={results} setResults={setResults} />
                 </div>
             </QueryClientProvider>
         </trpc.Provider>

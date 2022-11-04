@@ -8,42 +8,45 @@ import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
 import { direction } from '../../typescript'
-import type { Airport, Route } from '../../../../server/src/models/zod'
+import type { Airport, Route, Plan } from '../../../../server/src/models/zod'
 
 type Props = {
     to: Airport;
     setTo: ( airport: Airport ) => void;
     from: Airport;
     setFrom: ( airport: Airport ) => void;
+    results: Plan | undefined;
+    setResults: ( results: Plan ) => void;
 };
 
-const Ui = ( { setTo, setFrom, to, from } : Props ) => {
+const Ui = ( { setTo, setFrom, to, from, results, setResults } : Props ) => {
 
     const [ searching, triggerSearch ] = useState(false);
-    const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
-    const [ routes, setRoutes ] = useState<Route[] | undefined>();
-    console.log(routes);
-
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
         event.preventDefault();
         triggerSearch(true);
         return;
     }
 
+    const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
+    const getPlan = trpc.getPlan.useQuery( { from: from.icao, to: to.icao }, { enabled: false } );
+    const [ routes, setRoutes ] = useState<Route[] | undefined>();
     useEffect(() => {
         if ( searching === true ) {
             getRoutes.refetch();
+            getPlan.refetch();
             return;
         }
     }, [searching] );
 
     useEffect(() => {
-        if ( getRoutes.isSuccess === true ) {
+        if ( getRoutes.isSuccess === true && getPlan.isSuccess === true ) {
             triggerSearch(false)
             setRoutes(getRoutes.data);
+            setResults(getPlan.data);
             return;
         }
-    }, [getRoutes.isSuccess, getRoutes.isError] );
+    }, [getRoutes, getPlan] );
 
     return (
         <div className="UI">
