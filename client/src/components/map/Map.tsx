@@ -1,10 +1,9 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { trpc } from '../../App';
-import Map from 'react-map-gl';
+import Map, { Marker } from 'react-map-gl';
 import './map.scss';
 import type { Airport, Plan } from '../../../../server/src/models/zod'
-
-
+import AirportMarkers from '../airportmarkers/AirportMarkers';
 
 type Props = {
     from: Airport,
@@ -35,16 +34,13 @@ const MapBox = ( { from, to, results } : Props) => {
 
     return (
         <Map
-            initialViewState={{
-                  longitude: lng,
-                  latitude: lat,
-                  zoom: zoom
-            }}
-            style={{ width: "100%", height: "100%", position: "relative", z-index: 1 }}
+            initialViewState={{ longitude: lng, latitude: lat, zoom: zoom }}
             mapStyle="mapbox://styles/kheirong/cl8vtq4si00jq14lj9j247rgb"
             projection='globe'
             mapboxAccessToken="pk.eyJ1Ijoia2hlaXJvbmciLCJhIjoiY2w4c25pMXhpMDB0dTN1cG9iYTZoa24xYyJ9.GmTPkKx7TXvPXjmAGsE3Ag"
-        />
+        >
+        <AirportMarkers from={from} to={to} />
+        </Map>
     );
 
 }
