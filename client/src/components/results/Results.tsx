@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MdSearch } from "react-icons/md";
 import './results.scss';
-
-import type { Route } from '../../../../server/src/router'
+import type { Route } from '../../../../server/src/models/zod'
 
 type Props = {
     routes: Route[] | undefined;
@@ -10,11 +9,16 @@ type Props = {
 
 
 const Results = ( { routes } : Props ) => {
-    console.log(routes);
 
     return (
         <div className="results">
-
+            {routes &&
+                (
+                <div className="results-menu">
+                    routes
+                </div>
+                )
+            }
         </div>
     );
 }

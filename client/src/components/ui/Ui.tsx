@@ -7,8 +7,8 @@ import './loader.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
-import { direction, defaultRoute } from '../../typescript'
-import type { Airport, Route } from '../../../../server/src/router'
+import { direction } from '../../typescript'
+import type { Airport, Route } from '../../../../server/src/models/zod'
 
 type Props = {
     to: Airport;
@@ -21,7 +21,7 @@ const Ui = ( { setTo, setFrom, to, from } : Props ) => {
 
     const [ searching, triggerSearch ] = useState(false);
     const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
-    const [ routes, setRoutes ] = useState<Route[] | undefined>([defaultRoute]);
+    const [ routes, setRoutes ] = useState<Route[] | undefined>();
     console.log(routes);
 
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
@@ -45,7 +45,6 @@ const Ui = ( { setTo, setFrom, to, from } : Props ) => {
             return;
         }
     }, [getRoutes.isSuccess, getRoutes.isError] );
-
 
     return (
         <div className="UI">
