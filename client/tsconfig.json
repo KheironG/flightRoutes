@@ -9,7 +9,6 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
-        "strictNullChecks": false,
         "strict": true,
         "lib": ["dom"],
     },
