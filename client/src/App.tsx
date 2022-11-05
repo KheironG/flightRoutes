@@ -21,7 +21,14 @@ const App = () => {
 
     const [ from, setFrom ] = useState(defaultAirport);
     const [ to, setTo ] = useState(defaultAirport);
-    const [ plan, setPlan ] = useState<Plan | undefined>();
+    const [ plan, setPlan ] = useState<Plan | undefined>(undefined);
+
+    useEffect(() => {
+        if ( plan !== undefined ) {
+            setPlan(undefined);
+        }
+        return;
+    }, [from, to]);
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
