@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { trpc } from '../../App';
 import  { Map  } from 'react-map-gl';
+import  mapboxgl from 'mapbox-gl';
 import './map.scss';
 import type { Airport, Plan } from '../../../../server/src/models/zod'
 import AirportMarkers from '../airportmarkers/AirportMarkers';
@@ -18,19 +19,25 @@ const MapBox = ( { from, to, plan } : Props) => {
     const [lat, setLat] = useState(63.935);
     const [zoom, setZoom] = useState(1.7);
 
+    const map = useRef<any>(null);
 
     useEffect(() => {
-        if ( to.lng === 0 && to.lat === 0  ) return;
-            // map.current.flyTo({ center: [to.lng, to.lat] });
-    }, [to]);
-
-    useEffect(() => {
-        if ( from.lng === 0 && from.lat === 0  ) return;
-            // map.current.flyTo({ center: [from.lng, from.lat] });
+        if ( from.lng !== 0 && from.lat !== 0 && map != null ) {
+            map.current.flyTo({ center: [from.lng, from.lat] });
+        }
+        return;            
     }, [from]);
+
+    useEffect(() => {
+        if ( to.lng !== 0 && to.lat !== 0 && map != null ) {
+            map.current.flyTo({ center: [to.lng, to.lat] });
+        };
+        return;
+    }, [to]);
 
     return (
         <Map
+            ref={map}
             initialViewState={{ longitude: lng, latitude: lat, zoom: zoom }}
             mapStyle="mapbox://styles/kheirong/cl8vtq4si00jq14lj9j247rgb"
             projection='globe'
