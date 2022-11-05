@@ -38,20 +38,13 @@ const MapBox = ( { from, to, plan } : Props) => {
     useEffect(() => {
         if ( plan !==undefined ) {
             map.current.flyTo({ center: [from.lng, from.lat] });
-            setEaseTo(true);
-        };
-        return;
-    }, [from, plan]);
-
-    useEffect(() => {
-        if ( easeTo === true ) {
             const timer = setTimeout(() => {
                 map.current.easeTo({ center: [to.lng, to.lat], duration: 5000 });
             }, 1500);
             return () => clearTimeout(timer);
         };
         return;
-    }, [easeTo]);
+    }, [from, to, plan]);
 
     return (
         <Map
