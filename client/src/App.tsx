@@ -21,15 +21,14 @@ const App = () => {
 
     const [ from, setFrom ] = useState(defaultAirport);
     const [ to, setTo ] = useState(defaultAirport);
-    const [ results, setResults ] = useState<Plan | undefined>();
-    console.log(results);
+    const [ plan, setPlan ] = useState<Plan | undefined>();
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
-                    <MapBox from={from} to={to} results={results} />
-                    <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} results={results} setResults={setResults} />
+                    <MapBox from={from} to={to} plan={plan} />
+                    <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} plan={plan} setPlan={setPlan} />
                 </div>
             </QueryClientProvider>
         </trpc.Provider>

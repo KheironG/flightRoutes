@@ -15,11 +15,11 @@ type Props = {
     setTo: ( airport: Airport ) => void;
     from: Airport;
     setFrom: ( airport: Airport ) => void;
-    results: Plan | undefined;
-    setResults: ( results: Plan ) => void;
+    plan: Plan | undefined;
+    setPlan: ( plan: Plan ) => void;
 };
 
-const Ui = ( { setTo, setFrom, to, from, results, setResults } : Props ) => {
+const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     const [ searching, triggerSearch ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
@@ -43,7 +43,7 @@ const Ui = ( { setTo, setFrom, to, from, results, setResults } : Props ) => {
         if ( getRoutes.isSuccess === true && getPlan.isSuccess === true ) {
             triggerSearch(false)
             setRoutes(getRoutes.data);
-            setResults(getPlan.data);
+            setPlan(getPlan.data[0]);
             return;
         }
     }, [getRoutes, getPlan] );
