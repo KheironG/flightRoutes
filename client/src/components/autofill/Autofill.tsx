@@ -25,6 +25,15 @@ const Autofill = ( { direction, setAirport } :Props ) => {
         return;
     }
 
+    const handleOnFocus = ( event: ChangeEvent<HTMLInputElement> ) => {
+        setSelected(false);
+        setQuery(event.target.value);
+        if ( event.target.value.length > 0 ) {
+            event.target.select();
+        }
+        return;
+    }
+
     const setSuggestion = ( airport: Airport ) => {
         const queryString = airport.name + " (" + airport.iata + ")";
         setQuery(queryString);
@@ -52,7 +61,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                 <div className="input-field">
                     <input type="text" placeholder={direction + " city or aiport"}
                         onInput={handleInputChange}
-                        onFocus={() => setSelected(false)}
+                        onFocus={handleOnFocus}
                         value={query}
                     />
                     { direction === "from" ?
