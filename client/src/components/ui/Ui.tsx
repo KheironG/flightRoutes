@@ -5,6 +5,8 @@ import './searchBox.scss';
 import './loader.scss';
 
 import { GiCommercialAirplane } from "react-icons/gi";
+import { FiInfo } from "react-icons/fi";
+import { GrFormClose } from "react-icons/gr";
 import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
 import { direction } from '../../typescript'
@@ -20,6 +22,8 @@ type Props = {
 };
 
 const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
+
+    const [ showInfo, setShowInfo ] = useState(false);
 
     const [ searching, triggerSearch ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
@@ -51,12 +55,25 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     return (
         <div className="UI">
             <div className="search-box">
-                <div className="app-logo">
-                    <GiCommercialAirplane color="#02122c" fontSize="2.2em" />
-                    <h3>flightRoutes</h3>
-                </div>
+                {showInfo &&
+                    ( <div className="info">
+                         <div className="close">
+                            <GrFormClose fontSize="1.2em" onClick={() => setShowInfo(false)} />
+                         </div>
+                      </div>
+                    )
+                }
                 <form>
-                    <h4>Explore routes</h4>
+                    <div className="header">
+                        <div className="app-logo">
+                            <GiCommercialAirplane fontSize="2em" />
+                            <h4>flightRoutes</h4>
+                        </div>
+                        <div className="trigger" onClick={() => setShowInfo(true)}>
+                            <FiInfo fontSize="1.2em" />
+                        </div>
+                    </div>
+                    <h5>Explore routes</h5>
                     <div className="autofill-component from">
                         <Autofill direction={direction.from} setAirport={setFrom} />
                     </div>

@@ -16,9 +16,18 @@ const Results = ( { routes } : Props ) => {
     return (
         <div className="results">
         <div className="navigation">
-            <RiRouteFill fontSize="1.5em" />
-            <MdFlight fontSize="1.5em" />
-            <RiFlightTakeoffLine fontSize="1.5em" />
+            <div className="item">
+                <RiRouteFill />
+                <small>info</small>
+            </div>
+            <div className="item">
+                <MdFlight />
+                <small>flights</small>
+            </div>
+            <div className="item">
+                <RiFlightTakeoffLine />
+                <small>airports</small>
+            </div>
         </div>
             {routes &&
                 (

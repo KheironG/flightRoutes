@@ -3,17 +3,25 @@
 .results {
     @include flex( flex-start, center, column, 0px );
     width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    @include padding( 390px, 0px, 0px, 0px );
+    height: calc(100vh - 350px);
     background-color: #F3F3F3;
 
     .navigation {
-        @include flex( flex-start, center, initial, 25px );
+        @include flex( flex-start, center, initial, 40px );
+        @include padding( 10px, 20px, 10px, 20px );
+        box-sizing: border-box;
         width: 100%;
+        border-bottom: 1px solid grey;
+
+        .item {
+            @include flex( center, center, column, 7px );
+            font-size: 1.5em;
+
+            cursor: pointer;
+
+            small {
+                font-size: 12px;
+            }
+        }
     }
 }

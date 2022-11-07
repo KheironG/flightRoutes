@@ -3,8 +3,7 @@
 .suggestion {
     @include flex( flex-start, center, initial, 12px );
     width: 100%;
-    @include flex( center, center, initial, 0px );
-    @include padding( 20px, 15px, 20px, 15px );    
+    @include padding( 20px, 15px, 20px, 15px );
     box-sizing: border-box;
     border-bottom: 1px solid #D7DEDD;
     cursor: pointer;
