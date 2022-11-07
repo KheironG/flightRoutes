@@ -10,7 +10,6 @@ type Props = {
     routes: Route[] | undefined;
 };
 
-
 const Results = ( { routes } : Props ) => {
 
     return (

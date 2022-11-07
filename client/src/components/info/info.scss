@@ -1,0 +1,22 @@
+@import '../../mixins.scss';
+
+.info {
+    @include flex( flex-start, center, column, 25px );
+    width: 100%;
+    height: 350px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 8;
+    background-color: white;
+    @include padding( 30px, 20px, 20px, 20px );
+    box-sizing: border-box;
+
+    .close {
+        @include flex( flex-end, center, initial, 0px );
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+}
