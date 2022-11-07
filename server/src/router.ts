@@ -20,8 +20,6 @@ const appRouter = router({
                             {'city':{'$regex':req.input, '$options':'i'}}
                         ]}).toArray()) as AirportClass[];
                     if (airport) {
-                        console.log(airport);
-
                         return airport;
                     }
                 }

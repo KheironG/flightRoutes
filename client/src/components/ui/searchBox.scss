@@ -1,8 +1,7 @@
+@import '../../mixins.scss';
+
 .search-box {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+    @include flex( flex-start, center, column, 0px );
     width: 100%;
     height: 100%;
     position: absolute;
@@ -10,19 +9,18 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
+    background-color: transparent;
 
     .app-logo {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        @include flex( flex-start, center, initial, 10px );
         width: 100%;
-        column-gap: 10px;
         color: white;
         padding-top: 20px;
         padding-left: 20px;
         padding-right: 20px;
         padding-bottom: 30px;
         box-sizing: border-box;
+        background-color: white;
 
         h3 {
             margin: 0px;
@@ -31,11 +29,7 @@
     }
 
     form {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-        grid-gap: 25px;
+        @include flex( flex-start, flex-start, column, 25px );
         width: 100%;
         height: auto;
         box-sizing: border-box;
@@ -66,10 +60,7 @@
         }
 
         button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 5px;
+            @include flex( center, center, initial, 5px );
             width: 100%;
             height: 40px;
             color: white;

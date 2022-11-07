@@ -1,14 +1,12 @@
+@import '../../mixins.scss';
+
 .input-container {
+    @include flex( center, center, column, 4px );
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    grid-gap: 4px;
     text-align: left;
     border: 1px solid #D7DEDD;
     border-radius: 6px;

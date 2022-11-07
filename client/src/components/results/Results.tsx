@@ -13,8 +13,9 @@ const Results = ( { routes } : Props ) => {
         <div className="results">
             {routes &&
                 (
-                <div className="results-menu">
-                    routes
+                <div className="navigation">
+                    <p>test</p>
+                    <p>test</p>
                 </div>
                 )
             }
