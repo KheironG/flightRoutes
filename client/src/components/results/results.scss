@@ -9,11 +9,11 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
-    padding-top: 390px;
+    @include padding( 390px, 0px, 0px, 0px );
     background-color: #F3F3F3;
 
     .navigation {
-        @include flex( flex-start, center, initial, 10px );
+        @include flex( flex-start, center, initial, 25px );
         width: 100%;
     }
 }

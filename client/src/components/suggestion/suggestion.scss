@@ -3,16 +3,14 @@
 .suggestion {
     @include flex( flex-start, center, initial, 12px );
     width: 100%;
-    padding: 20px 15px;
+    @include flex( center, center, initial, 0px );
+    @include padding( 20px, 15px, 20px, 15px );    
     box-sizing: border-box;
     border-bottom: 1px solid #D7DEDD;
     cursor: pointer;
 
     .icon {
         @include flex( center, center, initial, 0px );
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     h5 {
