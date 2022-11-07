@@ -7,7 +7,7 @@ export class AirportClass {
         public name: string,
         public lat: number,
         public lng: number,
-        public elevation: number,
+        public elevation: number | string,
         public continent: string,
         public country: string,
         public region: string,

@@ -10,7 +10,7 @@ import { Airport, Route, Plan } from './models/zod'
 dotenv.config();
 
 const appRouter = router({
-    getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()) )
+    getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()))
         .query( async ( req ) => {
             try {
                 if ( collections.airports ) {
@@ -20,6 +20,8 @@ const appRouter = router({
                             {'city':{'$regex':req.input, '$options':'i'}}
                         ]}).toArray()) as AirportClass[];
                     if (airport) {
+                        console.log(airport);
+
                         return airport;
                     }
                 }

@@ -4,7 +4,7 @@ export type Airport = {
     name: string,
     lat: number,
     lng: number,
-    elevation: number,
+    elevation: number | string,
     continent: string,
     country: string,
     region: string,

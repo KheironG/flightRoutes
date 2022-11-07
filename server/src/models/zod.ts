@@ -6,7 +6,7 @@ export const Airport = z.object({
     name: z.string(),
     lat: z.number(),
     lng: z.number(),
-    elevation: z.number(),
+    elevation: z.number().or(z.string()),
     continent: z.string(),
     country: z.string(),
     region: z.string(),
@@ -65,7 +65,7 @@ export const Plan = z.object({
         year: z.number(),
         release: z.number(),
     }).nullable(),
-    plan: z.object({
+    route: z.object({
         nodes : z.array(
             z.object({
                 type: z.string(),
