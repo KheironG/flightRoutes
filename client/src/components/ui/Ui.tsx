@@ -70,10 +70,10 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </div>
                     <h5 className="header">Explore routes</h5>
                     <div className="autofill-component from">
-                        <Autofill direction={direction.from} setAirport={setFrom} setShowInfo={setShowInfo} />
+                        <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} />
                     </div>
                     <div className="autofill-component to">
-                        <Autofill direction={direction.to} setAirport={setTo} setShowInfo={setShowInfo} />
+                        <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} />
                     </div>
                     <button onClick={handleOnclick}>
                         Find route
