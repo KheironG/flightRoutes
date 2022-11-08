@@ -83,6 +83,12 @@ export const Plan = z.object({
     }).nullable()
 });
 
+export const Weather = z.object({
+    METAR: z.string().nullable(),
+    TAF: z.string().nullable(),
+});
+
 export type Airport = z.infer<typeof Airport>;
 export type Route = z.infer<typeof Route>;
 export type Plan = z.infer<typeof Plan>;
+export type Weather = z.infer<typeof Weather>;

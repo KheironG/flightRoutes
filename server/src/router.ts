@@ -6,8 +6,14 @@ import { ObjectId } from 'mongodb';
 import { collections } from "./mongodb";
 import { AirportClass } from "./models/airport"
 import { RouteClass } from "./models/route"
-import { Airport, Route, Plan } from './models/zod'
+import { Airport, Route, Plan, Weather } from './models/zod'
 dotenv.config();
+
+const flightPlanDbUrl ='https://api.flightplandatabase.com/';
+const flightPlanDbOptions = {
+    method: 'GET',
+    headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
+};
 
 const appRouter = router({
     getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()))
@@ -45,18 +51,25 @@ const appRouter = router({
                 console.log(error);
             }
         }),
-    getPlan: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) )
+    getPlan: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array(Plan) )
         .query( async ( req ) => {
-            const url ='https://api.flightplandatabase.com/search/'
-            const query = 'plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=1&includeRoute=true';
-            const options = {
-            	method: 'GET',
-            	headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
-            };
+            const query = 'search/plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=1&includeRoute=true';
             try {
-                const get = await fetch(url+query, options);
+                const get = await fetch(flightPlanDbUrl+query, flightPlanDbOptions);
                 const plan = await get.json();
                 return plan;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }),
+    getWeather: publicProcedure.input( z.string() ).output( Weather )
+        .query( async ( req ) => {
+            const query = 'weather/' + req.input;
+            try {
+                const get = await fetch(flightPlanDbUrl+query, flightPlanDbOptions);
+                const weather = await get.json();
+                return weather;
             }
             catch (error) {
                 console.log(error);
