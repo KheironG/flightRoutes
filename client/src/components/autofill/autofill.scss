@@ -20,10 +20,9 @@
             height: 40px;
             border: none;
             border-radius: 6px;
-            @include padding( 0px, 0px, 0px, 40px );  
+            @include padding( 0px, 0px, 0px, 40px );
             box-sizing: border-box;
         }
-
     }
 
     .suggestions {

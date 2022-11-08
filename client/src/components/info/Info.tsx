@@ -7,7 +7,7 @@ type Props = {
 
 const Info = ( { setShowInfo } : Props ) => {
     return (
-        <div className="info">
+        <div className="app-info">
              <div className="close">
                 <GrFormClose fontSize="1.2em" onClick={() => setShowInfo(false)} />
              </div>

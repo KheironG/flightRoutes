@@ -1,6 +1,6 @@
 @import '../../mixins.scss';
 
-.info {
+.app-info {
     @include flex( flex-start, center, column, 25px );
     width: 100%;
     height: 350px;

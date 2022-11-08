@@ -64,9 +64,10 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                         onFocus={handleOnFocus}
                         value={query}
                     />
-                    { direction === "from" ?
-                        ( <MdFlightTakeoff style={{ position: 'absolute', top: '12px', left: '10px' } } /> ) :
-                        ( <MdFlightLand style={{ position: 'absolute', top: '12px', left: '10px' } } /> ) }
+                    { direction === "from"
+                        ? ( <MdFlightTakeoff style={{ position: 'absolute', top: '12px', left: '10px' }} /> )
+                        : ( <MdFlightLand style={{ position: 'absolute', top: '12px', left: '10px' }} /> )
+                    }
                 </div>
                 {showSuggestions &&
                     (<div className="suggestions">
@@ -76,7 +77,7 @@ const Autofill = ( { direction, setAirport } :Props ) => {
                                     return( <Suggestion key={suggestion.id} suggestion={suggestion} setSuggestion={setSuggestion} />)
                                     })
                                 )
-                                : (null)
+                                : ( null )
                             )
                             : ( null )
                         }

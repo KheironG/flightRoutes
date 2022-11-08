@@ -9,7 +9,7 @@ interface Props {
     setSuggestion: ( suggestion : Airport ) => void;
 };
 
-const Suggestion = ( { suggestion, setSuggestion } :Props ) => {
+const Suggestion = ( { suggestion, setSuggestion } : Props ) => {
     return (
         <div className="suggestion" onClick={() => setSuggestion(suggestion)}>
             <div className="icon">

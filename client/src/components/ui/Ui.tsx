@@ -50,13 +50,13 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             setPlan(getPlan.data[0]);
             return;
         }
-    }, [getRoutes, getPlan] );
+    }, [ getRoutes, getPlan ] );
 
     return (
         <div className="UI">
             <div className="search-box">
                 {showInfo &&
-                    (<Info setShowInfo={setShowInfo} />)
+                    ( <Info setShowInfo={setShowInfo} /> )
                 }
                 <form>
                     <div className="header">
@@ -68,12 +68,12 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                             <FiInfo fontSize="1.2em" />
                         </div>
                     </div>
-                    <h5>Explore routes</h5>
+                    <h5 className="header">Explore routes</h5>
                     <div className="autofill-component from">
-                        <Autofill direction={direction.from} setAirport={setFrom} />
+                        <Autofill direction={direction.from} setAirport={setFrom} setShowInfo={setShowInfo} />
                     </div>
                     <div className="autofill-component to">
-                        <Autofill direction={direction.to} setAirport={setTo} />
+                        <Autofill direction={direction.to} setAirport={setTo} setShowInfo={setShowInfo} />
                     </div>
                     <button onClick={handleOnclick}>
                         Find route
