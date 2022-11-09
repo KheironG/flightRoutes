@@ -12,7 +12,10 @@ dotenv.config();
 const flightPlanDbUrl ='https://api.flightplandatabase.com/';
 const flightPlanDbOptions = {
     method: 'GET',
-    headers: { 'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}` }
+    headers: {
+        'Authorization': `${process.env.FLIGHTPLANDB_API_KEY}`,
+        'X-Units': 'METRIC'
+    }
 };
 
 const appRouter = router({
