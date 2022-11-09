@@ -19,6 +19,27 @@ type Props = {
 
 const Results = ( { routes, plan, to, from } : Props ) => {
 
+    let airlineCodes: string[] = [];
+    let aircrafts: string[] = [];
+    const compileData = ( routes: Route[] | undefined ): void => {
+        if ( routes !== undefined && routes.length > 0 ) {
+            for ( let route of routes ) {
+                airlineCodes.push(route.airline);
+                let aircraft = route.equipment.toString().split(" ")
+                if ( aircraft.length > 0 ) {
+                    for ( let instance of aircraft ) {
+                        aircrafts.push(instance);
+                    }
+                }
+            }
+        }
+        return;
+    }
+    compileData(routes);
+
+    console.log(airlineCodes);
+    console.log(aircrafts);
+
     return (
         <div className="results">
             <div className="navigation">

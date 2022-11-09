@@ -52,9 +52,6 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
         }
     }, [ getRoutes, getPlan ] );
 
-    console.log(plan);
-
-
     return (
         <div className="UI">
             <div className="search-box">
