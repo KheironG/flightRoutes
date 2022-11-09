@@ -5,13 +5,16 @@
     width: 100%;
     height: calc(100vh - 350px);
     background-color: #F3F3F3;
+    overflow-y: scroll;
+    @include padding( 10px, 0px, 30px, 0px );
+    box-sizing: border-box;
 
     .navigation {
         @include flex( flex-start, center, initial, 40px );
-        @include padding( 10px, 20px, 10px, 20px );
-        box-sizing: border-box;
         width: 100%;
         border-bottom: 1px solid grey;
+        @include padding( 10px, 20px, 10px, 20px );
+        box-sizing: border-box;
 
         .item {
             @include flex( center, center, column, 7px );

@@ -52,6 +52,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
         }
     }, [ getRoutes, getPlan ] );
 
+    console.log(plan);
+
+
     return (
         <div className="UI">
             <div className="search-box">
@@ -83,8 +86,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </button>
                 </form>
             </div>
-            {plan !== undefined &&
-                (<Results routes={routes} to={to} from={from} plan={plan} />)
+            {plan !== undefined
+                ? <Results routes={routes} to={to} from={from} plan={plan} />
+                : null
             }
         </div>
     );

@@ -24,7 +24,7 @@ const Results = ( { routes, plan, to, from } : Props ) => {
             <div className="navigation">
                 <div className="item">
                     <RiRouteFill />
-                    <small>plan</small>
+                    <small>info</small>
                 </div>
                 { routes &&
                     (
