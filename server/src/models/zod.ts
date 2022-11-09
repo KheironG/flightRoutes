@@ -30,6 +30,16 @@ export const Route = z.object({
     equipment: z.string().or(z.number())
 });
 
+export const Airline = z.object({
+    name: z.string(),
+    alias: z.string(),
+    iata: z.string(),
+    icao: z.string(),
+    callsign: z.string(),
+    country: z.string(),
+    active: z.string(),
+});
+
 export const Plan = z.object({
     id: z.number(),
     fromICAO: z.string().nullable(),
