@@ -40,6 +40,12 @@ export const Airline = z.object({
     active: z.string(),
 });
 
+export const Aircraft = z.object({
+    name: z.string(),
+    iata: z.string(),
+    icao: z.string(),
+});
+
 export const Plan = z.object({
     id: z.number(),
     fromICAO: z.string().nullable(),
@@ -100,5 +106,7 @@ export const Weather = z.object({
 
 export type Airport = z.infer<typeof Airport>;
 export type Route = z.infer<typeof Route>;
+export type Airline = z.infer<typeof Airline>;
+export type Aircraft = z.infer<typeof Aircraft>;
 export type Plan = z.infer<typeof Plan>;
 export type Weather = z.infer<typeof Weather>;

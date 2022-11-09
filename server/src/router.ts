@@ -7,7 +7,8 @@ import { collections } from "./mongodb";
 import { AirportClass } from "./models/airport"
 import { RouteClass } from "./models/route"
 import { AirlineClass } from "./models/airline"
-import { Airport, Route, Airline, Plan, Weather } from './models/zod'
+import { AircraftClass } from "./models/aircraft"
+import { Airport, Route, Airline, Aircraft, Plan, Weather } from './models/zod'
 dotenv.config();
 
 const flightPlanDbUrl ='https://api.flightplandatabase.com/';
@@ -55,7 +56,7 @@ const appRouter = router({
                 console.log(error);
             }
         }),
-    getAirlines: publicProcedure.input( z.array( ) ).output( z.array(Airline).or(z.undefined()) )
+    getAirlines: publicProcedure.input( z.array( z.string() ) ).output( z.array(Airline).or(z.undefined()) )
         .query( async ( req ) => {
             try {
                 if ( collections.airlines ) {
@@ -64,6 +65,22 @@ const appRouter = router({
                     }).toArray()) as AirlineClass[];
                     if (airlines) {
                         return airlines;
+                    }
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }),
+    getAircrafts: publicProcedure.input( z.array( z.string() ) ).output( z.array(Aircraft).or(z.undefined()) )
+        .query( async ( req ) => {
+            try {
+                if ( collections.aircrafts ) {
+                    const aircrafts = (await collections.aircrafts.find({
+                        iata: { $in: req.input }
+                    }).toArray()) as AircraftClass[];
+                    if (aircrafts) {
+                        return aircrafts;
                     }
                 }
             }
