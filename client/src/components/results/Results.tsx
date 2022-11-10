@@ -65,10 +65,6 @@ const Results = ( { routes, plan, to, from } : Props ) => {
         }
     }, [ getAirlines, getAircrafts ] );
 
-    console.log(airlines);
-    console.log(aircrafts);
-
-
 
     return (
         <div className="results">
@@ -91,7 +87,7 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                 </div>
             </div>
             { plan && ( <FlightInfo plan={plan} /> ) }
-            { routes && ( <Routes routes={routes} /> ) }
+            { routes !== undefined ? ( <Routes routes={routes} airlines={airlines} /> ) : null }
             { plan && to && from && ( <Airports to={to} from={from} /> ) }
         </div>
     );
