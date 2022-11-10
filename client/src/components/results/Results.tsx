@@ -10,6 +10,7 @@ import { MdFlight } from "react-icons/md";
 import FlightInfo from '../flightinfo/FlightInfo';
 import Airports from '../airports/Airports';
 import Routes from '../routes/Routes';
+import RoutesSchedule from '../routes/RoutesSchedule';
 
 type Props = {
     routes: Route[] | undefined;
@@ -86,9 +87,20 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                     <small>airports</small>
                 </div>
             </div>
-            { plan && ( <FlightInfo plan={plan} /> ) }
-            { routes !== undefined ? ( <Routes routes={routes} airlines={airlines} /> ) : null }
-            { plan && to && from && ( <Airports to={to} from={from} /> ) }
+            { plan &&
+                ( <FlightInfo plan={plan} /> )
+            }
+            { routes !== undefined && plan === undefined
+                ? ( <Routes routes={routes} airlines={airlines} /> )
+                : null
+            }
+            { routes !== undefined && plan !== undefined
+                ? ( <RoutesSchedule routes={routes} distance={plan.distance} airlines={airlines} />  )
+                : null
+            }
+            { plan && to && from &&
+                ( <Airports to={to} from={from} /> )
+            }
         </div>
     );
 }

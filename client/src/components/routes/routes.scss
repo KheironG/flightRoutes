@@ -22,11 +22,25 @@
         .details {
             @include flex( center, center, intial, 20px );
             width: 100%;
+
+            .column {
+                @include flex( center, center, column, 3px );
+
+                p {
+                    font-size: 12px;
+                    margin: 0px;
+                }
+
+                small {
+                    font-size: 11px;
+                }
+
+            }
         }
 
         .airline {
             font-size: 11px;
         }
-        
+
     }
 }

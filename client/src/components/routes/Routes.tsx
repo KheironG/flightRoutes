@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import './routes.scss';
 import type { Route, Airline } from '../../../../server/src/models/zod';
 import { BsArrowRight } from "react-icons/bs";
-
 
 type Props = {
     routes: Route[];
@@ -11,7 +9,7 @@ type Props = {
 
 const Routes = ( { routes, airlines } : Props ) => {
 
-    const airlineOutput = ( airline: string, airlines: Airline[] | undefined ): string | undefined => {
+    const airlineOutput = ( airline: string, airlines: Airline[] | undefined ): string => {
         if ( airlines !== undefined ) {
             for ( let i = 0; i < airlines.length; i++) {
                 if ( airline == airlines[i].iata ) {
@@ -25,7 +23,7 @@ const Routes = ( { routes, airlines } : Props ) => {
 
     return (
         <div className="routes">
-            {routes.map( ( route ) => {
+            {routes.map( ( route, i ) => {
                 return(
                     <div className="route">
                         <div className="details">
