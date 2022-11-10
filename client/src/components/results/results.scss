@@ -4,7 +4,6 @@
     @include flex( flex-start, center, column, 0px );
     width: 100%;
     height: calc(100vh - 350px);
-    background-color: #F3F3F3;
     overflow-y: scroll;
     @include padding( 10px, 0px, 30px, 0px );
     box-sizing: border-box;

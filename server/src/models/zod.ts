@@ -42,7 +42,7 @@ export const Airline = z.object({
 
 export const Aircraft = z.object({
     name: z.string(),
-    iata: z.string(),
+    iata: z.string().or(z.number()),
     icao: z.string(),
 });
 

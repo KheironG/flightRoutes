@@ -8,10 +8,6 @@ type Props = {
 
 const FlightInfo = ( { plan } : Props ) => {
 
-    console.log(plan);
-
-
-
     return (
         <div className="plan">
             <div className="plan-detail">

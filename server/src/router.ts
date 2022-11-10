@@ -72,12 +72,12 @@ const appRouter = router({
                 console.log(error);
             }
         }),
-    getAircrafts: publicProcedure.input( z.array( z.string() ) ).output( z.array(Aircraft).or(z.undefined()) )
+    getAircrafts: publicProcedure.input( z.array( z.string().or(z.number()) ) ).output( z.array( Aircraft ).or( z.undefined() ) )
         .query( async ( req ) => {
             try {
                 if ( collections.aircrafts ) {
                     const aircrafts = (await collections.aircrafts.find({
-                        iata: { $in: req.input }
+                        iata: { $in : req.input }
                     }).toArray()) as AircraftClass[];
                     if (aircrafts) {
                         return aircrafts;
