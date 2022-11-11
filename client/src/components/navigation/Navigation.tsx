@@ -1,5 +1,5 @@
 import './navigation.scss';
-import type { Route, Plan } from '../../../../server/src/models/zod';
+import type { Route, Plan, Aircraft } from '../../../../server/src/models/zod';
 
 import { RiRouteFill } from "react-icons/ri";
 import { RiFlightTakeoffLine } from "react-icons/ri";
@@ -8,9 +8,10 @@ import { MdFlight } from "react-icons/md";
 type Props = {
     routes: Route[] | undefined;
     plan: Plan | undefined;
+    aircrafts: Aircraft[] | undefined;
 };
 
-const Navigation = ( { routes, plan } : Props ) => {
+const Navigation = ( { routes, plan, aircrafts } : Props ) => {
 
     return (
         <div className="navigation">
@@ -23,11 +24,22 @@ const Navigation = ( { routes, plan } : Props ) => {
             }
             { routes !== undefined
                 ? <div className="item">
-                    <MdFlight />
+                    <RiFlightTakeoffLine />
                     <small>flights</small>
                 </div>
                 : null
             }
+            { aircrafts !== undefined
+                ? <div className="item">
+                    <MdFlight />
+                    <small>aircraft</small>
+                </div>
+                : null
+            }
+            <div className="item">
+                <MdFlight />
+                <small>airports</small>
+            </div>
         </div>
     );
 }

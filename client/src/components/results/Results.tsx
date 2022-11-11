@@ -7,11 +7,13 @@ import { RiRouteFill } from "react-icons/ri";
 import { RiFlightTakeoffLine } from "react-icons/ri";
 import { MdFlight } from "react-icons/md";
 
+import Navigation from '../navigation/Navigation';
 import FlightInfo from '../flightinfo/FlightInfo';
-import Aircrafts from '../aircrafts/Aircrafts';
 import Routes from '../routes/Routes';
 import RoutesWithSchedule from '../routes/RoutesWithSchedule';
-import Navigation from '../navigation/Navigation';
+import Aircrafts from '../aircrafts/Aircrafts';
+import Airports from '../airports/Airports';
+
 
 type Props = {
     routes: Route[] | undefined;
@@ -73,7 +75,7 @@ const Results = ( { routes, plan, to, from } : Props ) => {
 
     return (
         <div className="results">
-            <Navigation plan={plan} routes={routes} />
+            <Navigation plan={plan} routes={routes} aircrafts={aircrafts} />
             { plan !== undefined
                 ? <FlightInfo plan={plan} />
                 : null
@@ -90,6 +92,7 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                 ? <Aircrafts aircrafts={aircrafts} />
                 : null
             }
+            <Airports from={from} to={to} />
         </div>
     );
 }

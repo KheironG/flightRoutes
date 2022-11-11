@@ -1,0 +1,8 @@
+@import '../../mixins.scss';
+
+.airports {
+    @include flex( flex-start, flex-start, column, 20px );
+    width: 100%;
+    @include padding( 10px, 20px, 10px, 20px );
+    box-sizing: border-box;
+}

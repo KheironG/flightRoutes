@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
 import './airports.scss';
 import type { Airport } from '../../../../server/src/models/zod';
+
+import AirportInstance from '../airport/AirportInstance';
 
 type Props = {
     to: Airport,
@@ -8,10 +9,10 @@ type Props = {
 };
 
 const Airports = ( { to, from } : Props ) => {
-
     return (
         <div className="airports">
-
+            <AirportInstance airport={to} />
+            <AirportInstance airport={from} />
         </div>
     );
 }
