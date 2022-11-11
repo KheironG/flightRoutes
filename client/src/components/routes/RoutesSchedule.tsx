@@ -1,5 +1,5 @@
 import './routes.scss';
-import type { Route, Airline, Plan } from '../../../../server/src/models/zod';
+import type { Route, Airline } from '../../../../server/src/models/zod';
 import { BsArrowRight } from "react-icons/bs";
 
 type Props = {

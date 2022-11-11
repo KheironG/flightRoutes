@@ -11,6 +11,7 @@ import FlightInfo from '../flightinfo/FlightInfo';
 import Airports from '../airports/Airports';
 import Routes from '../routes/Routes';
 import RoutesSchedule from '../routes/RoutesSchedule';
+import Navigation from '../navigation/Navigation';
 
 type Props = {
     routes: Route[] | undefined;
@@ -66,28 +67,13 @@ const Results = ( { routes, plan, to, from } : Props ) => {
         }
     }, [ getAirlines, getAircrafts ] );
 
-
     return (
         <div className="results">
-            <div className="navigation">
-                <div className="item">
-                    <RiRouteFill />
-                    <small>info</small>
-                </div>
-                { routes &&
-                    (
-                    <div className="item">
-                        <MdFlight />
-                        <small>flights</small>
-                    </div>
-                    )
-                }
-                <div className="item">
-                    <RiFlightTakeoffLine />
-                    <small>airports</small>
-                </div>
-            </div>
-            <FlightInfo plan={plan} />
+            <Navigation plan={plan} routes={routes} />
+            { plan !== undefined
+                ? <FlightInfo plan={plan} />
+                : null
+            }
             { routes !== undefined && plan === undefined
                 ? ( <Routes routes={routes} airlines={airlines} /> )
                 : null
@@ -95,9 +81,6 @@ const Results = ( { routes, plan, to, from } : Props ) => {
             { routes !== undefined && plan !== undefined
                 ? ( <RoutesSchedule routes={routes} distance={plan.distance} airlines={airlines} />  )
                 : null
-            }
-            { plan && to && from &&
-                ( <Airports to={to} from={from} /> )
             }
         </div>
     );
