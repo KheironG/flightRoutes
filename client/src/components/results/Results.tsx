@@ -8,7 +8,7 @@ import { RiFlightTakeoffLine } from "react-icons/ri";
 import { MdFlight } from "react-icons/md";
 
 import FlightInfo from '../flightinfo/FlightInfo';
-import Airports from '../airports/Airports';
+import Aircrafts from '../aircrafts/Aircrafts';
 import Routes from '../routes/Routes';
 import RoutesWithSchedule from '../routes/RoutesWithSchedule';
 import Navigation from '../navigation/Navigation';
@@ -22,6 +22,7 @@ type Props = {
 
 const Results = ( { routes, plan, to, from } : Props ) => {
 
+    //Compiles airline and aircraft codes from routes object
     let airlineCodes: string[] = [];
     let aircraftCodes: (string | number)[] = [];
     const compileData = ( routes: Route[] | undefined ): void => {
@@ -44,10 +45,9 @@ const Results = ( { routes, plan, to, from } : Props ) => {
     }
     compileData(routes);
 
+    //Queries database for airlines and aircraft
     const getAirlines = trpc.getAirlines.useQuery( airlineCodes, { enabled: false } );
     const getAircrafts = trpc.getAircrafts.useQuery( aircraftCodes, { enabled: false } );
-    const [ airlines, setAirlines ] = useState<Airline[] | undefined>();
-    const [ aircrafts, setAircrafts ] = useState<Aircraft[] | undefined>();
     useEffect(() => {
         if ( routes !== undefined && routes.length > 0 ) {
             if ( airlineCodes.length > 0 ) {
@@ -59,6 +59,10 @@ const Results = ( { routes, plan, to, from } : Props ) => {
             return;
         }
     }, [routes, airlineCodes, aircraftCodes] );
+
+    //Sets airlines and aircraft state if calls to getAirlines and getAircrafts are successful
+    const [ airlines, setAirlines ] = useState<Airline[] | undefined>(undefined);
+    const [ aircrafts, setAircrafts ] = useState<Aircraft[] | undefined>(undefined);
     useEffect(() => {
         if ( getAirlines.isSuccess === true && getAircrafts.isSuccess === true ) {
             setAirlines(getAirlines.data);
@@ -79,7 +83,11 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                 : null
             }
             { routes !== undefined && plan !== undefined && plan.distance > 0
-                ? <RoutesWithSchedule routes={routes} distance={plan.distance} airlines={airlines} /> 
+                ? <RoutesWithSchedule routes={routes} distance={plan.distance} airlines={airlines} />
+                : null
+            }
+            { aircrafts !== undefined
+                ? <Aircrafts aircrafts={aircrafts} />
                 : null
             }
         </div>

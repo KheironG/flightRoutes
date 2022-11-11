@@ -85,7 +85,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     <button onClick={handleOnclick}>
                         Find route
                         {searching &&
-                            (<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)
+                            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                         }
                     </button>
                 </form>

@@ -23,7 +23,7 @@ const Routes = ( { routes, airlines } : Props ) => {
 
     return (
         <div className="routes">
-            {routes.map( ( route, i ) => {
+            {routes.map( ( route ) => {
                 const airline: string = airlineOutput( route.airline, airlines);
                 return(
                     <div className="route">
