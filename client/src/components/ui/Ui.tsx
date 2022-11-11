@@ -42,7 +42,6 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             return;
         }
     }, [searching] );
-
     useEffect(() => {
         if ( getRoutes.isSuccess === true && getPlan.isSuccess === true ) {
             triggerSearch(false)

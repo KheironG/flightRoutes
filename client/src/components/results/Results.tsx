@@ -10,7 +10,7 @@ import { MdFlight } from "react-icons/md";
 import FlightInfo from '../flightinfo/FlightInfo';
 import Airports from '../airports/Airports';
 import Routes from '../routes/Routes';
-import RoutesSchedule from '../routes/RoutesSchedule';
+import RoutesWithSchedule from '../routes/RoutesWithSchedule';
 import Navigation from '../navigation/Navigation';
 
 type Props = {
@@ -58,14 +58,14 @@ const Results = ( { routes, plan, to, from } : Props ) => {
             }
             return;
         }
-    }, [routes, airlineCodes, aircraftCodes ] );
+    }, [routes, airlineCodes, aircraftCodes] );
     useEffect(() => {
         if ( getAirlines.isSuccess === true && getAircrafts.isSuccess === true ) {
             setAirlines(getAirlines.data);
             setAircrafts(getAircrafts.data);
             return;
         }
-    }, [ getAirlines, getAircrafts ] );
+    }, [getAirlines, getAircrafts] );
 
     return (
         <div className="results">
@@ -75,11 +75,11 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                 : null
             }
             { routes !== undefined && plan === undefined
-                ? ( <Routes routes={routes} airlines={airlines} /> )
+                ? <Routes routes={routes} airlines={airlines} />
                 : null
             }
-            { routes !== undefined && plan !== undefined
-                ? ( <RoutesSchedule routes={routes} distance={plan.distance} airlines={airlines} />  )
+            { routes !== undefined && plan !== undefined && plan.distance > 0
+                ? <RoutesWithSchedule routes={routes} distance={plan.distance} airlines={airlines} /> 
                 : null
             }
         </div>

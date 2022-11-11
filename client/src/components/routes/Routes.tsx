@@ -9,6 +9,7 @@ type Props = {
 
 const Routes = ( { routes, airlines } : Props ) => {
 
+    //If airline names exists is airlines object, return airline name, else return airline IATA code
     const airlineOutput = ( airline: string, airlines: Airline[] | undefined ): string => {
         if ( airlines !== undefined ) {
             for ( let i = 0; i < airlines.length; i++) {
@@ -16,7 +17,6 @@ const Routes = ( { routes, airlines } : Props ) => {
                     return airlines[i].name;
                 }
             }
-            return airline;
         }
         return airline;
     }
@@ -24,6 +24,7 @@ const Routes = ( { routes, airlines } : Props ) => {
     return (
         <div className="routes">
             {routes.map( ( route, i ) => {
+                const airline: string = airlineOutput( route.airline, airlines);
                 return(
                     <div className="route">
                         <div className="details">
@@ -32,7 +33,7 @@ const Routes = ( { routes, airlines } : Props ) => {
                             <h3>{route.arr_airport}</h3>
                         </div>
                         <div className="airline">
-                            {airlineOutput( route.airline, airlines)}
+                            {airline}
                         </div>
                     </div>
                 )
