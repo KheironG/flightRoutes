@@ -83,10 +83,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </button>
                 </form>
             </div>
-            {plan !== undefined
-                ? <Results routes={routes} to={to} from={from} plan={plan} />
-                : null
-            }
+            <Results routes={routes} to={to} from={from} plan={plan} />
         </div>
     );
 }

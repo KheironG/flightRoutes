@@ -87,9 +87,7 @@ const Results = ( { routes, plan, to, from } : Props ) => {
                     <small>airports</small>
                 </div>
             </div>
-            { plan &&
-                ( <FlightInfo plan={plan} /> )
-            }
+            <FlightInfo plan={plan} />
             { routes !== undefined && plan === undefined
                 ? ( <Routes routes={routes} airlines={airlines} /> )
                 : null
