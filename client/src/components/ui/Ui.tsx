@@ -32,6 +32,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
         return;
     }
 
+    //Queries database for routes and flight plan, if searching state = true
     const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
     const getPlan = trpc.getPlan.useQuery( { from: from.icao, to: to.icao }, { enabled: false } );
     const [ routes, setRoutes ] = useState<Route[] | undefined>();
@@ -42,6 +43,8 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             return;
         }
     }, [searching] );
+
+    //Sets routes and plan state if calls to getRoutes and getPlan are successful
     useEffect(() => {
         if ( getRoutes.isSuccess === true && getPlan.isSuccess === true ) {
             triggerSearch(false)
@@ -50,6 +53,11 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             return;
         }
     }, [ getRoutes, getPlan ] );
+
+    //If user changes to or from state, reset routes state
+    useEffect(() => {
+        setRoutes(undefined);
+    }, [from, to]);
 
     return (
         <div className="UI">

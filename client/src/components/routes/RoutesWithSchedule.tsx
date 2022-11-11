@@ -10,7 +10,7 @@ type Props = {
 
 const RoutesWithSchedule = ( { routes, distance, airlines } : Props ) => {
 
-    //If airline names exists is airlines object, return airline name, else return airline IATA code
+    //If airline name exists is airlines object, return airline name, else return airline IATA code
     const airlineOutput = ( airline: string, airlines: Airline[] | undefined ): string => {
         if ( airlines !== undefined ) {
             for ( let i = 0; i < airlines.length; i++) {

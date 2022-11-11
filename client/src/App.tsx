@@ -24,10 +24,7 @@ const App = () => {
     const [ plan, setPlan ] = useState<Plan | undefined>(undefined);
 
     useEffect(() => {
-        if ( plan !== undefined ) {
-            setPlan(undefined);
-        }
-        return;
+        setPlan(undefined);
     }, [from, to]);
 
     return (

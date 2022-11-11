@@ -21,6 +21,13 @@ const Navigation = ( { routes, plan } : Props ) => {
                 </div>
                 : null
             }
+            { routes !== undefined
+                ? <div className="item">
+                    <MdFlight />
+                    <small>flights</small>
+                </div>
+                : null
+            }
         </div>
     );
 }
