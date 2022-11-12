@@ -10,7 +10,7 @@ import Autofill from '../autofill/Autofill';
 import Results from '../results/Results';
 import Info from '../info/Info';
 import { direction } from '../../typescript'
-import type { Airport, Route, Plan } from '../../../../server/src/models/zod'
+import type { Airport, Route, Plan, Aircraft, Airline } from '../../../../server/src/models/zod'
 
 type Props = {
     to: Airport;
@@ -25,39 +25,37 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     const [ showInfo, setShowInfo ] = useState(false);
 
-    const [ searching, triggerSearch ] = useState(false);
+    const [ loading, setLoading ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
         event.preventDefault();
-        triggerSearch(true);
+        setLoading(true);
         return;
     }
 
     //Queries database for routes and flight plan, if searching state = true
     const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
     const getPlan = trpc.getPlan.useQuery( { from: from.icao, to: to.icao }, { enabled: false } );
-    const [ routes, setRoutes ] = useState<Route[] | undefined>();
     useEffect(() => {
-        if ( searching === true ) {
+        if ( loading ) {
+            console.log('get plan and routes');
             getRoutes.refetch();
             getPlan.refetch();
             return;
         }
-    }, [searching] );
+    }, [loading] );
 
     //Sets routes and plan state if calls to getRoutes and getPlan are successful
+    const [ routes, setRoutes ] = useState<Route[] | undefined>();
+    const [ results, showResults ] = useState(false);
     useEffect(() => {
-        if ( getRoutes.isSuccess === true && getPlan.isSuccess === true ) {
-            triggerSearch(false)
+        if ( getRoutes.isSuccess === true && getPlan.isSuccess === true && loading ) {
+            console.log('set plan and routes');
             setRoutes(getRoutes.data);
             setPlan(getPlan.data[0]);
+            setLoading(false);
             return;
         }
-    }, [ getRoutes, getPlan ] );
-
-    //If user changes to or from state, reset routes state
-    useEffect(() => {
-        setRoutes(undefined);
-    }, [from, to]);
+    }, [ getRoutes, getPlan, loading ] );
 
     return (
         <div className="UI">
@@ -84,8 +82,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </div>
                     <button onClick={handleOnclick}>
                         Find route
-                        {searching &&
-                            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                        {loading === true
+                            ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            : null
                         }
                     </button>
                 </form>
