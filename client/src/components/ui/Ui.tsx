@@ -7,7 +7,7 @@ import './loader.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import { FiInfo } from "react-icons/fi";
 import Autofill from '../autofill/Autofill';
-import Results from '../results/Results';
+import Bridge from '../bridge/Bridge';
 import Info from '../info/Info';
 import { direction } from '../../typescript'
 import type { Airport, Route, Plan, Aircraft, Airline } from '../../../../server/src/models/zod'
@@ -89,7 +89,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </button>
                 </form>
             </div>
-            <Results routes={routes} to={to} from={from} plan={plan} />
+            <Bridge routes={routes} to={to} from={from} plan={plan} />
         </div>
     );
 }
