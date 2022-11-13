@@ -1,5 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { trpc } from '../../App';
+import { compileFlights } from '../../modules/compileFlights';
+import { compileCodes } from '../../modules/compileCodes';
 import '../results/results.scss';
 import type { Route, Airport, Airline, Aircraft, Plan } from '../../../../server/src/models/zod';
 
@@ -7,42 +9,17 @@ import Results from '../results/Results';
 
 type Props = {
     routes: Route[] | undefined;
-    plan: Plan | undefined;
+    plan: Plan;
     to: Airport,
     from: Airport,
 };
 
 const Bridge = ( { routes, plan, to, from } : Props ) => {
 
-    //Compiles and memoizes airline and aircraft codes
-    type Codes = {
-        airlineCodes: string[]
-        aircraftCodes:(string | number)[]
-    }
-    const compileCodes = ( routes: Route[] | undefined ): Codes  => {
-        let airlineCodes: string[] = [];
-        let aircraftCodes: (string | number)[] = [];
-        let codes: Codes = { airlineCodes: [], aircraftCodes: [] };
-        if ( routes !== undefined && routes.length > 0 ) {
-            console.log('compiling data');
-            for ( let route of routes ) {
-                airlineCodes.push(route.airline);
-                let aircraft = route.equipment.toString().split(" ")
-                if ( aircraft.length > 0 ) {
-                    for ( let instance of aircraft ) {
-                        if ( instance.match(/^[0-9]+$/) != null ) {
-                            aircraftCodes.push(parseInt(instance));
-                        } else {
-                            aircraftCodes.push(instance);
-                        }
-                    }
-                }
-            }
-            codes.airlineCodes = airlineCodes;
-            codes.aircraftCodes = aircraftCodes;
-        }
-        return codes;
-    }
+    const [ results, showResults ] = useState(false);
+
+
+    //Compiles and memoizes airline and aircraft codes from route objects
     const codes = useMemo(() => compileCodes( routes ), [ routes ]);
 
 
@@ -64,43 +41,55 @@ const Bridge = ( { routes, plan, to, from } : Props ) => {
     }, [codes] );
 
 
-    //Memoizes aircraft and airline data
+    //Sets aircrafts and airlines data to state
     type Data = {
-        airlines: Airline[] | [],
-        aircrafts: Aircraft[] | []
+        airlines: Airline[] | [] | undefined,
+        aircrafts: Aircraft[] | [] | undefined
     }
-    const setData = ( airlineResponse: any,  aircraftsResponse: any ): Data => {
-        let data: Data = { airlines: [], aircrafts: [] };
-        if ( airlineResponse.isSuccess && aircraftsResponse.isSuccess ) {
-            console.log('set aircraft and airlines');
-            data.airlines = airlineResponse.data;
-            data.aircrafts = aircraftsResponse.data;
-            getAirlines.remove();
-            getAircrafts.remove();
-        }
-        return data;
-    }
-    const data = useMemo(() => setData( getAirlines, getAircrafts ), [ getAirlines, getAircrafts ]);
-
-    
-    const [ results, showResults ] = useState(false);
+    const [ airlinesAircrafts, setAirlinesAircrafts ] = useState<Data>({airlines:undefined, aircrafts:undefined});
     useEffect(() => {
-        if ( plan === undefined ) {
-            showResults(false);
+        if ( getAirlines.isSuccess && getAircrafts.isSuccess ) {
+            console.log('set aircraft and airlines');
+            setAirlinesAircrafts({
+                airlines: getAirlines.data,
+                aircrafts: getAircrafts.data
+            });
+        }
+    }, [getAirlines.isSuccess, getAircrafts.isSuccess] );
+
+
+    //Compiles route and airline data into flight objects and sets to flights state
+    type Schedule = {
+        travelTime: string,
+        departureTime: string,
+        arrivalTime: string
+    }
+    interface Flight {
+        route: Route,
+        schedule: Schedule,
+        airline: string
+    }
+    const [ flights, setFlights ] = useState<Flight[] | [] | undefined>(undefined);
+    useEffect(() => {
+        if ( airlinesAircrafts.airlines !== undefined ) {
+            setFlights(compileFlights( routes, airlinesAircrafts.airlines, plan.distance ));
+        }
+    }, [airlinesAircrafts.airlines] );
+
+
+    useEffect(() => {
+        if ( flights !== undefined && airlinesAircrafts.aircrafts !== undefined ) {
+            showResults(true);
             return;
         }
-        if ( plan !== undefined
-            || ( routes !== undefined && routes.length > 0 )
-                || data.airlines.length > 0 || data.aircrafts.length > 0 ) {
-                    showResults(true);
-                    return;
-        }
-    }, [data, routes, plan] );
+    }, [airlinesAircrafts.aircrafts, flights] );
+
 
     return (
         <div className="results">
-        {results &&
-            <Results plan={plan} routes={routes} aircrafts={data.aircrafts} airlines={data.airlines} from={from} to={to} />
+        {results === true
+            ? <Results plan={plan} flights={flights} aircrafts={airlinesAircrafts.aircrafts} from={from} to={to} />
+            : null
         }
         </div>
     );

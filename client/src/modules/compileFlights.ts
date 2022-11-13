@@ -16,10 +16,10 @@ export const compileFlights = (
     routes: Route[] | undefined,
     airlines: Airline[] | [],
     distance: number
-): Flight[] | undefined => {
-
-    if ( routes !== undefined && distance !== undefined ) {
+): Flight[] | [] | undefined => {
+    if ( routes !== undefined ) {
         let flights: Flight[] = [];
+        console.log('compiling');
 
         for ( let route of routes ) {
             //If airline name exists is airlines object, return airline name, else return airline IATA code
@@ -75,5 +75,5 @@ export const compileFlights = (
         }
         return flights;
     }
-    return undefined;
+    return [];
 }
