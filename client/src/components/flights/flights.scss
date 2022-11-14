@@ -1,0 +1,46 @@
+@import '../../mixins.scss';
+
+.routes {
+    @include flex( flex-start, flex-start, column, 20px );
+    width: 100%;
+    @include padding( 10px, 20px, 10px, 20px );
+    box-sizing: border-box;
+
+    .route{
+        @include flex( center, center, column, 20px );
+        width: 100%;
+        @include padding( 20px, 10px, 20px, 10px );
+        box-sizing: border-box;
+        background-color: white;
+        border-radius: 6px;
+        filter: drop-shadow( 0px 4px 4px rgba(0,0,0,0.25) );
+
+        h3 {
+            margin: 0;
+        }
+
+        .details {
+            @include flex( center, center, intial, 20px );
+            width: 100%;
+
+            .column {
+                @include flex( center, center, column, 3px );
+
+                p {
+                    font-size: 12px;
+                    margin: 0px;
+                }
+
+                small {
+                    font-size: 11px;
+                }
+
+            }
+        }
+
+        .airline {
+            font-size: 11px;
+        }
+
+    }
+}
