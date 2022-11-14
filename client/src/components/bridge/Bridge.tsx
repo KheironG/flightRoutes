@@ -87,7 +87,7 @@ const Bridge = ( { routes, plan, to, from } : Props ) => {
 
     return (
         <div className="results">
-        {results === true
+        {results === true && flights !== undefined && airlinesAircrafts.aircrafts !== undefined 
             ? <Results plan={plan} flights={flights} aircrafts={airlinesAircrafts.aircrafts} from={from} to={to} />
             : null
         }

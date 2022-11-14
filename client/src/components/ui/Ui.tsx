@@ -25,12 +25,14 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     const [ showInfo, setShowInfo ] = useState(false);
 
+
     const [ loading, setLoading ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
         event.preventDefault();
         setLoading(true);
         return;
     }
+
 
     //Queries database for routes and flight plan, if searching state = true
     const getRoutes = trpc.getRoutes.useQuery( { from: from.iata, to: to.iata }, { enabled: false } );
@@ -43,6 +45,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             return;
         }
     }, [loading] );
+
 
     //Sets routes and plan state if calls to getRoutes and getPlan are successful
     const [ routes, setRoutes ] = useState<Route[] | undefined>();
@@ -89,7 +92,10 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </button>
                 </form>
             </div>
-            <Bridge routes={routes} to={to} from={from} plan={plan} />
+            { plan !== undefined
+                ? <Bridge routes={routes} to={to} from={from} plan={plan} />
+                : null
+            }
         </div>
     );
 }
