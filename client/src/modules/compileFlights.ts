@@ -16,11 +16,10 @@ export const compileFlights = (
     routes: Route[] | undefined,
     airlines: Airline[] | [],
     distance: number
-): Flight[] | [] | undefined => {
+): Flight[] | []  => {
     if ( routes !== undefined ) {
         let flights: Flight[] = [];
-        console.log('compiling');
-
+        console.log('compiling flights');
         for ( let route of routes ) {
             //If airline name exists is airlines object, return airline name, else return airline IATA code
             const airlineOutput = ( airline: string, airlines: Airline[] | [] ): string => {
@@ -33,7 +32,6 @@ export const compileFlights = (
                 }
                 return airline;
             }
-
             const generateSchedule = ( distance: number ): Schedule => {
                     //Determines flight time in hours and minutes
                     const travelTime: number = distance / Math.floor(Math.random() * ( 940-740 ) + 740 ) * 60;
@@ -62,7 +60,6 @@ export const compileFlights = (
                     };
                     return data;
             }
-
             //Creates flight object
             const schedule: Schedule = generateSchedule(distance);
             const airline: string = airlineOutput(route.airline, airlines);
