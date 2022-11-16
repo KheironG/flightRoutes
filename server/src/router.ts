@@ -9,6 +9,8 @@ import { RouteClass } from "./models/route"
 import { AirlineClass } from "./models/airline"
 import { AircraftClass } from "./models/aircraft"
 import { Airport, Route, Airline, Aircraft, Plan, Weather } from './models/zod'
+import { sanitizeIATA, sanitizeICAO, sanitizeAirlineIATA, sanitizeAircraftIATA, sanitizeQuery } from './sanitize'
+
 dotenv.config();
 
 const flightPlanDbUrl ='https://api.flightplandatabase.com/';
@@ -20,15 +22,17 @@ const flightPlanDbOptions = {
     }
 };
 
+
 const appRouter = router({
     getSuggestions: publicProcedure.input( z.string() ).output( z.array(Airport).or(z.undefined()))
         .query( async ( req ) => {
+            const query = sanitizeQuery(req.input);
             try {
                 if ( collections.airports ) {
                     const airport = (await collections.airports.find({
                         '$or':[
-                            {'name':{'$regex':req.input, '$options':'i'}},
-                            {'city':{'$regex':req.input, '$options':'i'}}
+                            {'name':{'$regex':query, '$options':'i'}},
+                            {'city':{'$regex':query, '$options':'i'}}
                         ]}).toArray()) as AirportClass[];
                     if (airport) {
                         return airport;
@@ -41,11 +45,13 @@ const appRouter = router({
         }),
     getRoutes: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array(Route).or(z.undefined()) )
         .query( async ( req ) => {
+            const from = sanitizeIATA(req.input.from);
+            const to = sanitizeIATA(req.input.to);
             try {
                 if ( collections.routes ) {
                     const routes = (await collections.routes.find({
-                        "dep_airport":req.input.from,
-                        "arr_airport":req.input.to
+                        "dep_airport":from,
+                        "arr_airport":to
                     }).toArray()) as RouteClass[];
                     if (routes) {
                         return routes;
@@ -58,10 +64,11 @@ const appRouter = router({
         }),
     getAirlines: publicProcedure.input( z.array( z.string() ) ).output( z.array(Airline).or(z.undefined()) )
         .query( async ( req ) => {
+            const iata = sanitizeAirlineIATA(req.input);
             try {
                 if ( collections.airlines ) {
                     const airlines = (await collections.airlines.find({
-                        iata: { $in: req.input }
+                        iata: { $in: iata }
                     }).toArray()) as AirlineClass[];
                     if (airlines) {
                         return airlines;
@@ -74,10 +81,11 @@ const appRouter = router({
         }),
     getAircrafts: publicProcedure.input( z.array( z.string().or(z.number()) ) ).output( z.array( Aircraft ).or( z.undefined() ) )
         .query( async ( req ) => {
+            const iata = sanitizeAircraftIATA(req.input);
             try {
                 if ( collections.aircrafts ) {
                     const aircrafts = (await collections.aircrafts.find({
-                        iata: { $in : req.input }
+                        iata: { $in : iata }
                     }).toArray()) as AircraftClass[];
                     if (aircrafts) {
                         return aircrafts;
@@ -90,7 +98,9 @@ const appRouter = router({
         }),
     getPlan: publicProcedure.input( z.object({ from: z.string(), to: z.string() }) ).output( z.array(Plan) )
         .query( async ( req ) => {
-            const query = 'search/plans?fromICAO=' + req.input.from + '&toICAO='  + req.input.to + '&limit=1&includeRoute=true';
+            const from = sanitizeICAO(req.input.from);
+            const to = sanitizeICAO(req.input.to);
+            const query = 'search/plans?fromICAO=' + from + '&toICAO='  + to + '&limit=1&includeRoute=true';
             try {
                 const get = await fetch(flightPlanDbUrl+query, flightPlanDbOptions);
                 const plan = await get.json();
@@ -102,7 +112,8 @@ const appRouter = router({
         }),
     getWeather: publicProcedure.input( z.string() ).output( Weather )
         .query( async ( req ) => {
-            const query = 'weather/' + req.input;
+            const icao = sanitizeICAO(req.input);
+            const query = 'weather/' + icao;
             try {
                 const get = await fetch(flightPlanDbUrl+query, flightPlanDbOptions);
                 const weather = await get.json();
