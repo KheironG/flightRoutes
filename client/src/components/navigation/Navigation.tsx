@@ -14,13 +14,14 @@ interface Props {
     flights: boolean;
     aircrafts: boolean;
     setNavState: ( navState: NavState ) => void;
+    navState: NavState;
 };
 
-const Navigation = ( { flights, aircrafts, setNavState } : Props ) => {
+const Navigation = ( { flights, aircrafts, setNavState, navState } : Props ) => {
 
     return (
         <div className="navigation">
-            <div className="item"
+            <div className="item" style={{ color: navState.one ? "#024" : "grey" }}
                 onClick={() => setNavState({
                     one:true, two:false, three:false, four:false
                 })}>
@@ -28,7 +29,7 @@ const Navigation = ( { flights, aircrafts, setNavState } : Props ) => {
                 <small>info</small>
             </div>
             { flights &&
-                <div className="item"
+                <div className="item" style={{ color: navState.two ? "#024" : "grey" }}
                     onClick={() => setNavState({
                         one:false, two:true, three:false, four:false
                     })}>
@@ -37,7 +38,7 @@ const Navigation = ( { flights, aircrafts, setNavState } : Props ) => {
                 </div>
             }
             { aircrafts &&
-                <div className="item"
+                <div className="item" style={{ color: navState.three ? "#024" : "grey" }}
                     onClick={() => setNavState({
                         one:false, two:false, three:true, four:false
                     })}>
@@ -45,7 +46,7 @@ const Navigation = ( { flights, aircrafts, setNavState } : Props ) => {
                     <small>aircraft</small>
                 </div>
             }
-            <div className="item"
+            <div className="item" style={{ color: navState.four ? "#024" : "grey" }}
                 onClick={() => setNavState({
                     one:false, two:false, three:false, four:true
                 })}>

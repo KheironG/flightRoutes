@@ -38,6 +38,7 @@ const Results = ( { plan, flights, aircrafts, to, from } : Props ) => {
         <Navigation flights={flights.length > 0 ? true: false}
                     aircrafts={aircrafts.length > 0 ? true: false}
                     setNavState={setNavState}
+                    navState={navState}
         />
         {  navState.one
             ? <FlightInfo plan={plan} />

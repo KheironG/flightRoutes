@@ -1,20 +1,23 @@
 @import '../../mixins.scss';
 
 .navigation {
-    @include flex( flex-start, center, initial, 40px );
+    @include flex( center, center, initial, 40px );
     width: 100%;
     border-bottom: 1px solid grey;
-    @include padding( 10px, 20px, 10px, 20px );
+    @include padding( 10px, 20px, 20px, 20px );
     box-sizing: border-box;
 
     .item {
-        @include flex( center, center, column, 7px );
+        @include flex( center, center, column, 10px );
         font-size: 1.5em;
 
         cursor: pointer;
 
         small {
             font-size: 12px;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
+
     }
 }
