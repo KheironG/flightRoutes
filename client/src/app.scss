@@ -1,9 +1,16 @@
 @import './mixins.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,400&display=swap');
 
 body {
     width: 100%;
     height: 100%;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+
+    h1, h2, h3, h4, h5 {
+        font-weight: bold;
+    }
 
     #root {
         width: 100%;
@@ -12,7 +19,7 @@ body {
         .App {
             display: grid;
             grid-template-columns: 350px calc(100% - 350px);
-            grid-template-rows: auto auto;
+            grid-template-rows: 100%;
             position: relative;
             z-index: 0;
             width: 100%;
