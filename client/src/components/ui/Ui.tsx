@@ -6,6 +6,7 @@ import './searchBox.scss';
 import './loader.scss';
 
 import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { FiInfo } from "react-icons/fi";
 
 import Autofill from '../autofill/Autofill';
@@ -28,6 +29,17 @@ type Props = {
 const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     const [ showInfo, setShowInfo ] = useState(false);
+
+    const [ uiPosition, setUiPosition ] = useState(0);
+    const handelUiPosition = () =>  {
+        if ( uiPosition === 0 ) {
+            setUiPosition(1);
+        } else {
+            setUiPosition(0);
+        }
+    }
+
+    console.log(uiPosition);
 
 
     const [ loading, setLoading ] = useState(false);
@@ -65,9 +77,13 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     }, [ getRoutes, getPlan, loading ] );
 
     return (
-        <div className="UI">
-            <div className="toggle">
-                <IoMdArrowDropup style={{ color: 'white' }} fontSize="1.2em" />
+        <div className={`UI ${uiPosition === 0 ?  "closed" : "open"} `} >
+            <div className="toggle" onClick={() => handelUiPosition()}>
+                {uiPosition === 0
+                    ? <IoMdArrowDropup style={{ color: 'white' }} fontSize="1.2em" />
+                    : <IoMdArrowDropdown style={{ color: 'white' }} fontSize="1.2em" />        
+                }
+
             </div>
             <div className="search-box">
                 {showInfo &&

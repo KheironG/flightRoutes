@@ -44,6 +44,10 @@
         overflow-y: scroll;
         margin-top: -6px;
 
+        @media ( max-width: 900px ) {
+            max-height: 300px;
+        }
+
     }
 
 }
