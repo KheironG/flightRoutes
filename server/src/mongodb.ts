@@ -21,10 +21,5 @@ export async function connectToDatabase () {
     collections.routes = routes;
     collections.airlines = airlines;
     collections.aircrafts = aircrafts;
-    console.log(`Connect to ${db.databaseName} db and
-                ${airports.collectionName},
-                ${routes.collectionName},
-                ${aircrafts.collectionName},
-                ${airlines.collectionName},
-                 collections`);
+    console.log(`Connected to ${db.databaseName} database`);
 }

@@ -13,6 +13,7 @@ import { sanitizeIATA, sanitizeICAO, sanitizeAirlineIATA, sanitizeAircraftIATA, 
 
 dotenv.config();
 
+
 const flightPlanDbUrl ='https://api.flightplandatabase.com/';
 const flightPlanDbOptions = {
     method: 'GET',
@@ -32,7 +33,8 @@ const appRouter = router({
                     const airport = (await collections.airports.find({
                         '$or':[
                             {'name':{'$regex':query, '$options':'i'}},
-                            {'city':{'$regex':query, '$options':'i'}}
+                            {'city':{'$regex':query, '$options':'i'}},
+                            {'iata':{'$regex':query, '$options':'i'}}
                         ]}).toArray()) as AirportClass[];
                     if (airport) {
                         return airport;
