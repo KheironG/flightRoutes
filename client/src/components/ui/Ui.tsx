@@ -31,6 +31,8 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     const [ showInfo, setShowInfo ] = useState(false);
 
     const [ uiPosition, setUiPosition ] = useState(0);
+    const screenWidth: number = window.innerWidth;
+    const uiClassName: string = uiPosition === 0 ?  "closed" : "open"
     const handelUiPosition = () =>  {
         if ( uiPosition === 0 ) {
             setUiPosition(1);
@@ -38,8 +40,14 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
             setUiPosition(0);
         }
     }
-
-    console.log(uiPosition);
+    useEffect(() => {
+        if ( plan !== undefined && uiPosition === 0 ) {
+            const timer = setTimeout(() => {
+                setUiPosition(1);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [plan] );
 
 
     const [ loading, setLoading ] = useState(false);
@@ -77,11 +85,11 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     }, [ getRoutes, getPlan, loading ] );
 
     return (
-        <div className={`UI ${uiPosition === 0 ?  "closed" : "open"} `} >
+        <div className={`UI ${screenWidth <= 900 ?  uiClassName : ""} `} >
             <div className="toggle" onClick={() => handelUiPosition()}>
                 {uiPosition === 0
                     ? <IoMdArrowDropup style={{ color: 'white' }} fontSize="1.2em" />
-                    : <IoMdArrowDropdown style={{ color: 'white' }} fontSize="1.2em" />        
+                    : <IoMdArrowDropdown style={{ color: 'white' }} fontSize="1.2em" />
                 }
 
             </div>
