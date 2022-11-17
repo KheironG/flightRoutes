@@ -12,3 +12,12 @@
     padding-bottom: $bottom;
     padding-left: $left;
 }
+
+@mixin grid( $columns, $rows, $justify, $align, $gridgap ) {
+    display: grid;
+    grid-template-columns:  $justify;
+    grid-template-rows: $align;
+    justify-items: $justify;
+    align-items: $align;
+    grid-gap: $gridgap;
+}

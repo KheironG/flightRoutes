@@ -72,15 +72,11 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                 }
                 <form>
                     <div className="header">
-                        <div className="app-logo">
-                            <GiCommercialAirplane fontSize="2em" />
-                            <h4>flightRoutes</h4>
-                        </div>
+                        <h5 className="header">Explore routes</h5>
                         <div className="trigger" onClick={() => setShowInfo(true)}>
                             <FiInfo fontSize="1.2em" />
                         </div>
                     </div>
-                    <h5 className="header">Explore routes</h5>
                     <div className="autofill-component from">
                         <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} />
                     </div>

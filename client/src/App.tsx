@@ -31,8 +31,8 @@ const App = () => {
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
                 <div className="App">
-                    <MapBox from={from} to={to} plan={plan} />
                     <Ui from={from} setFrom={setFrom} to={to} setTo={setTo} plan={plan} setPlan={setPlan} />
+                    <MapBox from={from} to={to} plan={plan} />            
                 </div>
             </QueryClientProvider>
         </trpc.Provider>
