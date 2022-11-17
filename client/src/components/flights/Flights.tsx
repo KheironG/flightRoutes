@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
 import './flights.scss';
-import type { Route, Airline } from '../../../../server/src/models/zod';
+import type { Route } from '../../../../server/src/models/zod';
 import { BsArrowRight } from "react-icons/bs";
 
 type Schedule = {

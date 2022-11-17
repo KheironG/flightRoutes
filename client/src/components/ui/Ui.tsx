@@ -1,5 +1,6 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { trpc } from '../../App';
+
 import './ui.scss';
 import './searchBox.scss';
 import './loader.scss';
@@ -7,10 +8,13 @@ import './loader.scss';
 import { GiCommercialAirplane } from "react-icons/gi";
 import { FiInfo } from "react-icons/fi";
 import Autofill from '../autofill/Autofill';
+
 import Bridge from '../bridge/Bridge';
 import Info from '../info/Info';
+
 import { direction } from '../../typescript'
-import type { Airport, Route, Plan, Aircraft, Airline } from '../../../../server/src/models/zod'
+import type { Airport, Route, Plan } from '../../../../server/src/models/zod'
+
 
 type Props = {
     to: Airport;

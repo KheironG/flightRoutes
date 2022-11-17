@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Source, Layer, LineLayer, useMap } from 'react-map-gl';
+import { Source, Layer, LineLayer } from 'react-map-gl';
 import { FeatureCollection } from "geojson";
 import type { Plan, Airport } from '../../../../server/src/models/zod'
 
@@ -40,15 +40,6 @@ const FlightPlan = ( { plan, to } : Props ) => {
             'line-width': 3
         }
     };
-
-    // const {current: map} = useMap();
-    //
-    // useEffect(() => {
-    //     if ( map !== undefined && easeTo === true ) {
-    //         map.flyTo({ center: [to.lng, to.lat] });
-    //     };
-    //     return;
-    // }, [map, easeTo]);
 
     return (
         <Source id="flight-plan" type="geojson" data={planData}>

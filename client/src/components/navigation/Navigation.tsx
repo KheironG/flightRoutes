@@ -1,5 +1,4 @@
 import './navigation.scss';
-import type { Route, Plan, Aircraft } from '../../../../server/src/models/zod';
 
 import { RiRouteFill } from "react-icons/ri";
 import { RiFlightTakeoffLine } from "react-icons/ri";
@@ -16,6 +15,7 @@ interface Props {
     aircrafts: boolean;
     setNavState: ( navState: NavState ) => void;
 };
+
 const Navigation = ( { flights, aircrafts, setNavState } : Props ) => {
 
     return (

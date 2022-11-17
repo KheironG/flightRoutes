@@ -1,39 +1,46 @@
 @import '../../mixins.scss';
 
 .airport {
-    @include flex( center, center, column, 20px );
+    @include flex( flex-start, flex-start, column, 10px );
     width: 100%;
-    @include padding( 20px, 10px, 20px, 10px );
+    @include padding( 30px, 20px, 30px, 20px );
     box-sizing: border-box;
     background-color: white;
     border-radius: 6px;
     filter: drop-shadow( 0px 4px 4px rgba(0,0,0,0.25) );
 
-    h3 {
-        margin: 0;
+    h5 {
+        margin-top: 0;
+        margin-bottom: 10px;
     }
 
-    .details {
-        @include flex( center, center, intial, 20px );
+    .airport-detail {
+        @include flex( flex-start, flex-start, column, 5px );
+        border-bottom: 1px solid rgba(173,216,230,.75);
+        @include padding( 5px, 0px, 8px, 0px );
         width: 100%;
 
-        .column {
-            @include flex( center, center, column, 3px );
+        h5 {
+            margin: 0;
+        }
 
-            p {
-                font-size: 12px;
-                margin: 0px;
-            }
-
-            small {
-                font-size: 11px;
-            }
-
+        small {
+            font-size: 11px;
         }
     }
 
-    .airline {
-        font-size: 11px;
+}
+
+.container {
+    @include flex( center, flex-start, column, 5px );
+    width: 100%;
+
+
+    .trigger {
+        @include flex(flex-end, center, row, 5px );
     }
 
+    .weather {
+
+    }
 }

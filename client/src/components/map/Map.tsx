@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { trpc } from '../../App';
-import  { Map, Fog  } from 'react-map-gl';
+import  { Map } from 'react-map-gl';
 import './map.scss';
 import type { Airport, Plan } from '../../../../server/src/models/zod'
 import AirportMarkers from '../airportmarkers/AirportMarkers';
@@ -12,7 +12,7 @@ type Props = {
     plan: Plan | undefined
 }
 
-const MapBox = ( { from, to, plan } : Props) => {
+const MapBox = ( { from, to, plan } : Props ) => {
 
     const [lng, setLng] = useState(21.064);
     const [lat, setLat] = useState(63.935);

@@ -7,6 +7,8 @@ type Props = {
     airport: Airport,
 };
 
+import { MdFlight } from "react-icons/md";
+
 const AirportInstance = ( { airport } : Props  ) => {
 
     const [showWeather, setShowWeather ] = useState(false);
@@ -17,7 +19,7 @@ const AirportInstance = ( { airport } : Props  ) => {
         }
     }, [showWeather] );
 
-    const [weather, setWeather ] = useState<Weather | undefined>();
+    const [weather, setWeather ] = useState<Weather | undefined>(undefined);
     useEffect(() => {
         if ( getWeather.isSuccess ) {
             setWeather(getWeather.data);
@@ -26,7 +28,46 @@ const AirportInstance = ( { airport } : Props  ) => {
 
     return (
         <div className="airport">
-            test
+            <h5>
+                {airport.name}
+            </h5>
+            <div className="airport-detail">
+                <small>
+                    iata, icao
+                </small>
+                <h5>
+                    {airport.iata + ", " + airport.icao }
+                </h5>
+            </div>
+            <div className="airport-detail">
+                <small>
+                    location
+                </small>
+                <h5>
+                    {airport.city + ", " + airport.country + ", " + airport.continent}
+                </h5>
+            </div>
+                {airport.url.length > 0
+                    ? <div className="airport-detail">
+                            <small>
+                                website
+                            </small>
+                            <h5>
+                                <a href={airport.url}>
+                                    website
+                                </a>
+                            </h5>
+                      </div>
+                     : null
+                }
+            <div className="container">
+                <div className="trigger">
+                    <MdFlight />
+                </div>
+                <div className="weather">
+                    test
+                </div>
+            </div>
         </div>
     );
 }

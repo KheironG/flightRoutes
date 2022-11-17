@@ -1,4 +1,3 @@
-import { useRef, useEffect, useState } from 'react';
 import './suggestion.scss';
 import { MdAirplanemodeActive } from "react-icons/md";
 
