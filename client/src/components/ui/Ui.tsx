@@ -5,10 +5,10 @@ import './ui.scss';
 import './searchBox.scss';
 import './loader.scss';
 
-import { GiCommercialAirplane } from "react-icons/gi";
+import { IoMdArrowDropup } from "react-icons/io";
 import { FiInfo } from "react-icons/fi";
-import Autofill from '../autofill/Autofill';
 
+import Autofill from '../autofill/Autofill';
 import Bridge from '../bridge/Bridge';
 import Info from '../info/Info';
 
@@ -66,6 +66,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     return (
         <div className="UI">
+            <div className="toggle">
+                <IoMdArrowDropup style={{ color: 'white' }} fontSize="1.2em" />
+            </div>
             <div className="search-box">
                 {showInfo &&
                     ( <Info setShowInfo={setShowInfo} /> )

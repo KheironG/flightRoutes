@@ -3,6 +3,8 @@
     grid-row: 1;
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: 0;
 
     @media ( max-width: 900px ) {
         grid-column: 1;
