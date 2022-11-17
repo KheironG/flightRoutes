@@ -11,9 +11,22 @@
     border: 1px solid #D7DEDD;
     border-radius: 6px;
 
+    @media ( max-width: 900px ) {
+        bottom: 0;
+        top: auto;
+        padding-bottom: 40px;
+        box-sizing: border-box;
+    }
+
     .input-field {
         position: relative;
         width: 100%;
+
+        @media ( max-width: 900px ) {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
 
         input {
             width: 100%;
@@ -30,6 +43,7 @@
         max-height: 400px;
         overflow-y: scroll;
         margin-top: -6px;
+
     }
 
 }

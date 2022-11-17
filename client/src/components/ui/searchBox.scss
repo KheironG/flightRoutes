@@ -55,6 +55,16 @@
             z-index: 6;
         }
 
+        @media ( max-width: 900px ) {
+            .from {
+                z-index: 6;
+            }
+
+            .to {
+                z-index: 7;
+            }
+        }
+
         button {
             @include flex( center, center, initial, 5px );
             width: 100%;
