@@ -10,11 +10,10 @@ import { MdFlightLand } from "react-icons/md";
 type Props = {
     direction: string;
     setAirport: ( airport: Airport ) => void;
-    showInfo: boolean;
     setError: ( error: boolean ) => void;
 };
 
-const Autofill = ( { direction, setAirport, showInfo, setError } : Props ) => {
+const Autofill = ( { direction, setAirport, setError } : Props ) => {
 
     const [ query, setQuery ] = useState("");
     const [ showSuggestions, setShowSuggestions ] = useState(false);
@@ -77,7 +76,7 @@ const Autofill = ( { direction, setAirport, showInfo, setError } : Props ) => {
                         : ( <MdFlightLand style={{ fontSize: "1.2em", position: 'absolute', top: '12px', left: '12px' }} /> )
                     }
                 </div>
-                {showSuggestions && !showInfo &&
+                {showSuggestions && 
                     (<div className="suggestions">
                         {suggestions.data ?
                             ( suggestions.data.length > 0 ?

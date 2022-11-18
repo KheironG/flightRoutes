@@ -11,7 +11,6 @@ import { FiInfo } from "react-icons/fi";
 
 import Autofill from '../autofill/Autofill';
 import Bridge from '../bridge/Bridge';
-import Info from '../info/Info';
 
 import { direction } from '../../typescript'
 import type { Airport, Route, Plan } from '../../../../server/src/models/zod'
@@ -28,7 +27,6 @@ type Props = {
 
 const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
-    const [ showInfo, setShowInfo ] = useState(false);
 
     const [ loading, setLoading ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
@@ -78,22 +76,16 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     return (
         <div className="UI" >
             <div className="search-box" style={{ backgroundImage: "url(/images/noise.png)" }}>
-                {showInfo &&
-                    ( <Info setShowInfo={setShowInfo} /> )
-                }
                 <form>
                     <div className="header">
                         <h5 className="header">Explore routes</h5>
-                        <div className="trigger" onClick={() => setShowInfo(true)}>
-                            <FiInfo fontSize="1.2em" />
-                        </div>
                     </div>
                     <div className="inputs">
                         <div className="autofill-component from">
-                            <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} setError={setError} />
+                            <Autofill direction={direction.from} setAirport={setFrom} setError={setError} />
                         </div>
                         <div className="autofill-component to">
-                            <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} setError={setError}  />
+                            <Autofill direction={direction.to} setAirport={setTo} setError={setError}  />
                         </div>
                         <button onClick={handleOnclick}>
                             Find route

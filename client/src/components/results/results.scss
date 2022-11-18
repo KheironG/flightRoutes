@@ -4,7 +4,7 @@
     @include flex( flex-start, flex-start, row, 0px );
     width: 100%;
     max-width: 1050px;
-    @include padding( 60px, 0px, 60px, 0px );
+    @include padding( 60px, 30px, 60px, 30px );
     box-sizing: border-box;
 
     @media ( max-width: 1050px ) {

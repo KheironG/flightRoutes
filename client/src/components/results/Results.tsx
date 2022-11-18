@@ -8,6 +8,7 @@ import FlightInfo from '../flightinfo/FlightInfo';
 import Flights from '../flights/Flights';
 import Aircrafts from '../aircrafts/Aircrafts';
 import Airports from '../airports/Airports';
+import Footer from '../footer/Footer';
 
 type Schedule = {
     travelTime: string,
@@ -34,28 +35,31 @@ const Results = ( { plan, flights, aircrafts, to, from } : Props ) => {
     const [ navState, setNavState ] = useState({ one:true, two:false, three:false, four:false });
 
     return (
-        <div className="results">
-        <Navigation flights={flights.length > 0 ? true: false}
-                    aircrafts={aircrafts.length > 0 ? true: false}
-                    setNavState={setNavState}
-                    navState={navState}
-        />
-        {  navState.one
-            ? <FlightInfo plan={plan} />
-            : null
-        }
-        { flights.length > 0 && navState.two
-            ? <Flights flights={flights} />
-            : null
-        }
-        { aircrafts.length > 0 && navState.three
-            ? <Aircrafts aircrafts={aircrafts} />
-            : null
-        }
-        {navState.four &&
-            <Airports from={from} to={to} />
-        }
-        </div>
+        <>
+            <div className="results">
+                <Navigation flights={flights.length > 0 ? true: false}
+                            aircrafts={aircrafts.length > 0 ? true: false}
+                            setNavState={setNavState}
+                            navState={navState}
+                />
+                {  navState.one
+                    ? <FlightInfo plan={plan} />
+                    : null
+                }
+                { flights.length > 0 && navState.two
+                    ? <Flights flights={flights} />
+                    : null
+                }
+                { aircrafts.length > 0 && navState.three
+                    ? <Aircrafts aircrafts={aircrafts} />
+                    : null
+                }
+                {navState.four &&
+                    <Airports from={from} to={to} />
+                }
+            </div>
+            <Footer />
+        </>
     );
 }
 

@@ -1,0 +1,19 @@
+@import '../../mixins.scss';
+
+footer {
+    @include flex( space-between, center, row, 70px );
+    width: 100%;
+    background-color: $darkBlue;
+    color: white;
+    @include padding( 40px, 60px, 40px, 60px );
+    box-sizing: border-box;
+
+    div {
+        @include flex( center, center, column, 10px );
+        max-width: 100%;
+    }
+
+    @media ( max-width: 1050px ) {
+        @include flex( flex-start, center, column, 30px );
+    }
+}
