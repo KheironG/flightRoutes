@@ -11,9 +11,14 @@ type Props = {
 const Airports = ( { to, from } : Props ) => {
     return (
         <div className="airports">
-            <h3>Airports info</h3>
-            <AirportInstance airport={to} />
-            <AirportInstance airport={from} />
+            <div>
+                <h3>Departure airport</h3>
+                <AirportInstance airport={from} />
+            </div>
+            <div>
+                <h3>Arrival airport</h3>
+                <AirportInstance airport={to} />
+            </div>        
         </div>
     );
 }
