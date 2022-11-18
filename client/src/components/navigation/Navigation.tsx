@@ -19,7 +19,7 @@ interface Props {
 
 const Navigation = ( { flights, aircrafts, setNavState, navState } : Props ) => {
     return (
-        <div className="navigation">
+        <div className="navigation" id="navigation">
             <div className={`item ${ navState.one ? "active" : "inactive" }`}
                 onClick={() => setNavState({
                     one:true, two:false, three:false, four:false

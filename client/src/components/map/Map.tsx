@@ -39,8 +39,8 @@ const MapBox = ( { from, to, plan } : Props ) => {
         if ( plan !==undefined ) {
             map.current.flyTo({ center: [from.lng, from.lat] });
             const timer = setTimeout(() => {
-                map.current.easeTo({ center: [to.lng, to.lat], duration: 5000 });
-            }, 1500);
+                map.current.easeTo({ center: [to.lng, to.lat], duration: 3000 });
+            }, 1000);
             return () => clearTimeout(timer);
         };
         return;

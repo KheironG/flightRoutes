@@ -80,14 +80,18 @@ const Bridge = ( { routes, plan, to, from } : Props ) => {
     useEffect(() => {
         if ( flights !== undefined && airlinesAircrafts.aircrafts !== undefined ) {
             showResults(true);
-            return;
+            const timer = setTimeout(() => {
+                window.scrollTo({top: 350, behavior: 'smooth'});
+            }, 4000);
+            return () => clearTimeout(timer);
+
         }
     }, [airlinesAircrafts.aircrafts, flights] );
 
 
     return (
         <div className="results">
-        {results === true && flights !== undefined && airlinesAircrafts.aircrafts !== undefined 
+        {results === true && flights !== undefined && airlinesAircrafts.aircrafts !== undefined
             ? <Results plan={plan} flights={flights} aircrafts={airlinesAircrafts.aircrafts} from={from} to={to} />
             : null
         }
