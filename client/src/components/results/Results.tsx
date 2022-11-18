@@ -34,7 +34,7 @@ const Results = ( { plan, flights, aircrafts, to, from } : Props ) => {
     const [ navState, setNavState ] = useState({ one:true, two:false, three:false, four:false });
 
     return (
-        <>
+        <div className="results">
         <Navigation flights={flights.length > 0 ? true: false}
                     aircrafts={aircrafts.length > 0 ? true: false}
                     setNavState={setNavState}
@@ -55,7 +55,7 @@ const Results = ( { plan, flights, aircrafts, to, from } : Props ) => {
         {navState.four &&
             <Airports from={from} to={to} />
         }
-        </>
+        </div>
     );
 }
 

@@ -75,10 +75,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
         }
     }, [ getRoutes.isError, getPlan.isError ] );
 
-
     return (
         <div className="UI" >
-            <div className="search-box">
+            <div className="search-box" style={{ backgroundImage: "url(/images/noise.png)" }}>
                 {showInfo &&
                     ( <Info setShowInfo={setShowInfo} /> )
                 }
