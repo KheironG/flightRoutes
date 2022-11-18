@@ -12,9 +12,10 @@ type Props = {
     plan: Plan;
     to: Airport,
     from: Airport,
+    setError: ( error: boolean ) => void;
 };
 
-const Bridge = ( { routes, plan, to, from } : Props ) => {
+const Bridge = ( { routes, plan, to, from, setError } : Props ) => {
 
     const [ results, showResults ] = useState(false);
 
@@ -84,7 +85,8 @@ const Bridge = ( { routes, plan, to, from } : Props ) => {
                 window.scrollTo({top: 350, behavior: 'smooth'});
             }, 4000);
             return () => clearTimeout(timer);
-
+        } else {
+            setError(true);
         }
     }, [airlinesAircrafts.aircrafts, flights] );
 

@@ -11,9 +11,10 @@ type Props = {
     direction: string;
     setAirport: ( airport: Airport ) => void;
     showInfo: boolean;
+    setError: ( error: boolean ) => void;
 };
 
-const Autofill = ( { direction, setAirport, showInfo } : Props ) => {
+const Autofill = ( { direction, setAirport, showInfo, setError } : Props ) => {
 
     const [ query, setQuery ] = useState("");
     const [ showSuggestions, setShowSuggestions ] = useState(false);
@@ -55,6 +56,12 @@ const Autofill = ( { direction, setAirport, showInfo } : Props ) => {
             return;
         }
     }, [query] );
+
+    useEffect(() => {
+        if ( suggestions.isError ) {
+            setError(true);
+        }
+    }, [suggestions.isError] );
 
     return (
         <>

@@ -44,6 +44,9 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     useEffect(() => {
         if ( loading ) {
             console.log('get plan and routes');
+            if ( error ) {
+                setError(false);
+            }
             getRoutes.refetch();
             getPlan.refetch();
             return;
@@ -64,6 +67,15 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
         }
     }, [ getRoutes, getPlan, loading ] );
 
+    //Error handler for UI, Autofill and Brdige components
+    const [ error, setError ] = useState(false);
+    useEffect(() => {
+        if ( getRoutes.isError || getPlan.isError ) {
+            setError(true);
+        }
+    }, [ getRoutes.isError, getPlan.isError ] );
+
+
     return (
         <div className="UI" >
             <div className="search-box">
@@ -79,23 +91,20 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                     </div>
                     <div className="inputs">
                         <div className="autofill-component from">
-                            <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} />
+                            <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} setError={setError} />
                         </div>
                         <div className="autofill-component to">
-                            <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} />
+                            <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} setError={setError}  />
                         </div>
                         <button onClick={handleOnclick}>
                             Find route
-                            {loading === true
-                                ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                                : null
-                            }
+                            {loading && <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> }
                         </button>
                     </div>
                 </form>
             </div>
             { plan !== undefined
-                ? <Bridge routes={routes} to={to} from={from} plan={plan} />
+                ? <Bridge routes={routes} to={to} from={from} plan={plan} setError={setError} />
                 : null
             }
         </div>
