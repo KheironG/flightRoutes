@@ -8,6 +8,7 @@ type Props = {
 const Aircrafts = ( { aircrafts } : Props ) => {
     return (
         <div className="aircrafts">
+            <h3>Aircraft on this route</h3>
             {aircrafts.map( ( aircraft ) => {
                 return(
                     <div className="aircraft">

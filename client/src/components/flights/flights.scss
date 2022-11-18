@@ -1,30 +1,43 @@
 @import '../../mixins.scss';
 
 .routes {
-    @include flex( flex-start, flex-start, column, 20px );
+    @include flex( flex-start, flex-start, column, 25px );
     width: 100%;
-    @include padding( 10px, 20px, 10px, 20px );
+    @include padding( 0px, 20px, 10px, 30px );
     box-sizing: border-box;
+    border-left: 1px solid grey;
+
+    h3 {
+        margin-bottom: 15px;
+    }
+
+    @media ( max-width: 1050px ) {
+        border-left: none;
+        max-width: 600px;
+        @include padding( 0px, 20px, 10px, 20px );
+    }
 
     .route{
-        @include flex( center, center, column, 20px );
+        @include flex( center, center, column, 30px );
         width: 100%;
-        @include padding( 20px, 10px, 20px, 10px );
+        @include padding( 30px, 20px, 30px, 20px );
         box-sizing: border-box;
         background-color: white;
         border-radius: 6px;
         filter: drop-shadow( 0px 4px 4px rgba(0,0,0,0.25) );
+        color: grey;
 
         h3 {
             margin: 0;
+            color: black;
         }
 
         .details {
-            @include flex( center, center, intial, 20px );
+            @include flex( center, center, intial, 30px );
             width: 100%;
 
             .column {
-                @include flex( center, center, column, 3px );
+                @include flex( center, center, column, 10px );
 
                 p {
                     font-size: 12px;
@@ -33,6 +46,7 @@
 
                 small {
                     font-size: 11px;
+                    color: black;
                 }
 
             }

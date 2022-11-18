@@ -6,9 +6,9 @@ type Props = {
 };
 
 const FlightInfo = ( { plan } : Props ) => {
-
     return (
         <div className="plan">
+            <h3>Route info</h3>
             <div className="plan-detail">
                 <small>Departs from</small>
                 <h5>{plan.fromName}</h5>

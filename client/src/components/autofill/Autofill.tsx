@@ -66,8 +66,8 @@ const Autofill = ( { direction, setAirport, showInfo } : Props ) => {
                         value={query}
                     />
                     { direction === "from"
-                        ? ( <MdFlightTakeoff style={{ position: 'absolute', top: '12px', left: '10px' }} /> )
-                        : ( <MdFlightLand style={{ position: 'absolute', top: '12px', left: '10px' }} /> )
+                        ? ( <MdFlightTakeoff style={{ fontSize: "1.2em", position: 'absolute', top: '12px', left: '12px' }} /> )
+                        : ( <MdFlightLand style={{ fontSize: "1.2em", position: 'absolute', top: '12px', left: '12px' }} /> )
                     }
                 </div>
                 {showSuggestions && !showInfo &&

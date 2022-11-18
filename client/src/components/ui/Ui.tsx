@@ -30,26 +30,6 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
 
     const [ showInfo, setShowInfo ] = useState(false);
 
-    const [ uiPosition, setUiPosition ] = useState(0);
-    const screenWidth: number = window.innerWidth;
-    const uiClassName: string = uiPosition === 0 ?  "closed" : "open"
-    const handelUiPosition = () =>  {
-        if ( uiPosition === 0 ) {
-            setUiPosition(1);
-        } else {
-            setUiPosition(0);
-        }
-    }
-    useEffect(() => {
-        if ( plan !== undefined && uiPosition === 0 ) {
-            const timer = setTimeout(() => {
-                setUiPosition(1);
-            }, 1500);
-            return () => clearTimeout(timer);
-        }
-    }, [plan] );
-
-
     const [ loading, setLoading ] = useState(false);
     const handleOnclick = ( event: MouseEvent<HTMLElement> ) => {
         event.preventDefault();
@@ -85,14 +65,7 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
     }, [ getRoutes, getPlan, loading ] );
 
     return (
-        <div className={`UI ${screenWidth <= 900 ?  uiClassName : ""} `} >
-            <div className="toggle" onClick={() => handelUiPosition()}>
-                {uiPosition === 0
-                    ? <IoMdArrowDropup style={{ color: 'white' }} fontSize="1.2em" />
-                    : <IoMdArrowDropdown style={{ color: 'white' }} fontSize="1.2em" />
-                }
-
-            </div>
+        <div className="UI" >
             <div className="search-box">
                 {showInfo &&
                     ( <Info setShowInfo={setShowInfo} /> )
@@ -104,19 +77,21 @@ const Ui = ( { setTo, setFrom, to, from, plan, setPlan } : Props ) => {
                             <FiInfo fontSize="1.2em" />
                         </div>
                     </div>
-                    <div className="autofill-component from">
-                        <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} />
+                    <div className="inputs">
+                        <div className="autofill-component from">
+                            <Autofill direction={direction.from} setAirport={setFrom} showInfo={showInfo} />
+                        </div>
+                        <div className="autofill-component to">
+                            <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} />
+                        </div>
+                        <button onClick={handleOnclick}>
+                            Find route
+                            {loading === true
+                                ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                : null
+                            }
+                        </button>
                     </div>
-                    <div className="autofill-component to">
-                        <Autofill direction={direction.to} setAirport={setTo} showInfo={showInfo} />
-                    </div>
-                    <button onClick={handleOnclick}>
-                        Find route
-                        {loading === true
-                            ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                            : null
-                        }
-                    </button>
                 </form>
             </div>
             { plan !== undefined

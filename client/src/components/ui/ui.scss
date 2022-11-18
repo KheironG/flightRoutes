@@ -2,7 +2,7 @@
 
 .UI {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 2;
     width: 100%;
     @include flex( flex-start, center, column, 0px );
     height: 100%;
@@ -11,37 +11,4 @@
     position: relative;
     z-index: 1;
     transition: margin-top 1s;
-
-    .toggle {
-        display: none;
-    }
-
-    @media ( max-width: 900px ) {
-        grid-column: 1;
-        grid-row: 2;
-        height: 100vh;
-
-        .toggle {
-            @include flex( center, center, row, 0px );
-            position: absolute;
-            top: -35px;
-            right: 0px;
-            width: 35px;
-            height: 35px;
-            background-color: #02122c;
-            border-radius: 6px 0px 0px 0px;
-            filter: drop-shadow( 0px 4px 4px rgba(0,0,0,0.25) );
-            cursor: pointer;
-        }
-
-    }
-
-}
-
-.open {
-    margin-top: calc( -100vh + 500px);
-}
-
-.closed {
-    margin-top: 0px;
 }
